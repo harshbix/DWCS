@@ -1,0 +1,21 @@
+import { createClient } from '@supabase/supabase-js';
+
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+/**
+ * Elevated Administrative Supabase Client (Bypasses RLS).
+ * 
+ * WARNING: Never import this client in Browser/Client Components.
+ * Ensure it is only invoked in Server Components, Server Actions, or Route Handlers.
+ */
+export const supabaseAdmin = createClient(
+  url || '',
+  serviceRoleKey || '',
+  {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  }
+);

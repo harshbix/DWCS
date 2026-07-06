@@ -1,0 +1,10 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/(admin)/admin/page": "/admin",
+  "/(citizen)/citizen/page": "/citizen",
+  "/(auth)/login/page": "/login",
+  "/(driver)/driver/page": "/driver",
+  "/(landing)/landing/page": "/landing",
+  "/page": "/",
+  "/todos/page": "/todos"
+}
