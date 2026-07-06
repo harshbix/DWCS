@@ -1,0 +1,6 @@
+{
+  "name": "Tanzania Digital Waste Management",
+  "description": "A comprehensive digital waste management platform for Tanzania, featuring Citizen, Driver, and Admin portals with real-time tracking, payments, issue reporting, and analytics.",
+  "requestFramePermissions": ["camera", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
