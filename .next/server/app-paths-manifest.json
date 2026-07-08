@@ -1,10 +1,4 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/(admin)/admin/page": "app/(admin)/admin/page.js",
-  "/(citizen)/citizen/page": "app/(citizen)/citizen/page.js",
-  "/(auth)/login/page": "app/(auth)/login/page.js",
-  "/(driver)/driver/page": "app/(driver)/driver/page.js",
-  "/(landing)/landing/page": "app/(landing)/landing/page.js",
   "/page": "app/page.js",
-  "/todos/page": "app/todos/page.js"
+  "/(auth)/login/page": "app/(auth)/login/page.js"
 }

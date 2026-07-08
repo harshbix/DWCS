@@ -1,40 +1,44 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useAuthStore } from '@/stores/auth.store';
-import { DashboardLayout } from '@/components/layout/dashboard-layout';
-import { CitizenPortal } from '@/components/dashboard/citizen-portal';
-import { DriverPortal } from '@/components/dashboard/driver-portal';
-import { AdminPortal } from '@/components/dashboard/admin-portal';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/hooks/useAuth';
+import { PageContainer } from '@/components/layout/page-container';
 
 /**
- * Root Dashboard preview page.
- * Dynamically binds views and roles depending on active Zustand selectors.
+ * Root Redirector.
+ * Reads the authenticated Supabase user profile and routes them to their portal.
+ * If not authenticated, routes to the login page.
  */
 export default function RootDashboardPage() {
-  const { role } = useAuthStore();
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const router = useRouter();
+  const { role, isAuthenticated, isLoading } = useAuth();
 
-  // Align default tab selections when roles toggle
   useEffect(() => {
-    if (role === 'admin') {
-      setActiveTab('dashboard');
-    } else {
-      setActiveTab('home');
+    if (isLoading) return;
+
+    if (!isAuthenticated) {
+      router.replace('/login');
+      return;
     }
-  }, [role]);
+
+    if (role === 'admin' || role === 'supervisor') {
+      router.replace('/admin');
+    } else if (role === 'driver') {
+      router.replace('/driver');
+    } else {
+      router.replace('/citizen');
+    }
+  }, [role, isAuthenticated, isLoading, router]);
 
   return (
-    <DashboardLayout activeTab={activeTab} setActiveTab={setActiveTab}>
-      {role === 'citizen' && (
-        <CitizenPortal activeTab={activeTab} setActiveTab={setActiveTab} />
-      )}
-      {role === 'driver' && (
-        <DriverPortal activeTab={activeTab} setActiveTab={setActiveTab} />
-      )}
-      {role === 'admin' && (
-        <AdminPortal activeTab={activeTab} setActiveTab={setActiveTab} />
-      )}
-    </DashboardLayout>
+    <PageContainer className="flex h-screen items-center justify-center bg-background">
+      <div className="flex flex-col items-center gap-3">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        <span className="text-xs text-text-secondary font-medium tracking-wide">
+          Verifying session status...
+        </span>
+      </div>
+    </PageContainer>
   );
 }

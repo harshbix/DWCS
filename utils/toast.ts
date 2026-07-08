@@ -2,11 +2,12 @@ import { useNotificationStore } from '@/stores/notification.store';
 
 /**
  * Global toast emitter utility.
- * Appends messages directly into the Zustand notifications store feed.
+ * Appends transient UI messages into the Zustand notification store.
+ * These are NOT persisted to the database.
  */
 export const toast = {
   success(title: string, message: string) {
-    useNotificationStore.getState().addNotification({
+    useNotificationStore.getState().addToast({
       id: String(Date.now()),
       title,
       message,
@@ -16,7 +17,7 @@ export const toast = {
     });
   },
   error(title: string, message: string) {
-    useNotificationStore.getState().addNotification({
+    useNotificationStore.getState().addToast({
       id: String(Date.now()),
       title,
       message,
@@ -26,7 +27,7 @@ export const toast = {
     });
   },
   info(title: string, message: string) {
-    useNotificationStore.getState().addNotification({
+    useNotificationStore.getState().addToast({
       id: String(Date.now()),
       title,
       message,
