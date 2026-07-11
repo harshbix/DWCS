@@ -33,11 +33,12 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
-  // Bypass paths (static assets, public pages, auth portals)
+  // Bypass paths (static assets, public pages, auth portals, OAuth callback)
   if (
     pathname === '/' ||
     pathname.startsWith('/_next') ||
     pathname.startsWith('/static') ||
+    pathname.startsWith('/auth') ||
     pathname.includes('.') ||
     pathname === '/login' ||
     pathname === '/register'
@@ -67,6 +68,11 @@ export async function middleware(request: NextRequest) {
       .is('deleted_at', null);
 
     const roles: string[] = rolesData?.map((r: any) => r.roles?.name) || [];
+
+    if (roles.length === 0) {
+      // Prevent infinite redirect loop if database roles are not found/mapped yet
+      return NextResponse.redirect(new URL('/login?error=no_role_assigned', request.url));
+    }
 
     if (isAdminRoute && !roles.includes('admin') && !roles.includes('supervisor')) {
       // Redirect out of admin route group

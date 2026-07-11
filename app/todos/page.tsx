@@ -1,21 +1,20 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server'
+import { createClient } from '@/utils/supabase/server'
+import { cookies } from 'next/headers'
 
 export default async function Page() {
-  const supabase = await createServerSupabaseClient()
+  const cookieStore = await cookies()
+  const supabase = createClient(cookieStore)
 
   const { data: todos } = await supabase.from('todos').select()
 
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h1 className="text-xl font-bold mb-4">Supabase Todos Checklist</h1>
-      <ul className="list-disc pl-5 space-y-2">
-        {todos?.map((todo) => (
-          <li key={todo.id} className="text-sm font-medium">{todo.name}</li>
-        ))}
-      </ul>
+    <ul className="p-6 max-w-md mx-auto list-disc pl-8 space-y-1 text-sm font-medium">
+      {todos?.map((todo) => (
+        <li key={todo.id}>{todo.name}</li>
+      ))}
       {(!todos || todos.length === 0) && (
-        <p className="text-xs text-text-secondary">No todos found in Supabase todos table.</p>
+        <p className="text-xs text-text-secondary">No todos found in Supabase.</p>
       )}
-    </div>
+    </ul>
   )
 }

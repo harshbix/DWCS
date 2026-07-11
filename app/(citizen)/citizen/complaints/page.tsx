@@ -34,9 +34,9 @@ export default function CitizenComplaintsPage() {
         setLocationAcquired(true);
       },
       () => {
-        setReportLoc('-6.7924, 39.2083');
+        setReportLoc('-8.9000, 33.4500');
         setLocationAcquired(true);
-        toast.info('Location Fallback', 'Using default Dar es Salaam coordinates.');
+        toast.info('Location Fallback', 'Using default Mbeya coordinates.');
       }
     );
   };

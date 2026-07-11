@@ -46,9 +46,9 @@ export default function DriverDashboardPage() {
 
   useEffect(() => {
     if (!navulating || !assignedVehicle?.id) return;
-    updateLocation.mutate({ vehicleId: assignedVehicle.id, lat: -6.7924 + (Math.random() - 0.5) * 0.005, lng: 39.2083 + (Math.random() - 0.5) * 0.005 });
+    updateLocation.mutate({ vehicleId: assignedVehicle.id, lat: -8.9000 + (Math.random() - 0.5) * 0.005, lng: 33.4500 + (Math.random() - 0.5) * 0.005 });
     const interval = setInterval(() => {
-      updateLocation.mutate({ vehicleId: assignedVehicle.id, lat: -6.7924 + (Math.random() - 0.5) * 0.005, lng: 39.2083 + (Math.random() - 0.5) * 0.005 });
+      updateLocation.mutate({ vehicleId: assignedVehicle.id, lat: -8.9000 + (Math.random() - 0.5) * 0.005, lng: 33.4500 + (Math.random() - 0.5) * 0.005 });
     }, 15000);
     return () => clearInterval(interval);
   }, [navulating, assignedVehicle?.id]);

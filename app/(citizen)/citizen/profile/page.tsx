@@ -42,7 +42,7 @@ export default function CitizenProfilePage() {
               </div>
               <div className="text-right">
                 <p className="text-[8px] text-primary-container opacity-70">ZONE</p>
-                <p className="font-bold">DSM-MUNICIPALITY</p>
+                <p className="font-bold">MBY-MUNICIPALITY</p>
               </div>
             </div>
           </div>

@@ -41,8 +41,8 @@ export default function DriverTrackingPage() {
     if (!broadcasting || !assignedVehicle?.id) return;
 
     const sendPing = () => {
-      const lat = -6.7924 + (Math.random() - 0.5) * 0.005;
-      const lng = 39.2083 + (Math.random() - 0.5) * 0.005;
+      const lat = -8.9000 + (Math.random() - 0.5) * 0.005;
+      const lng = 33.4500 + (Math.random() - 0.5) * 0.005;
       updateLocation.mutate({ vehicleId: assignedVehicle.id, lat, lng });
     };
 

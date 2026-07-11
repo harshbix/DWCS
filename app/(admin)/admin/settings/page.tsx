@@ -41,7 +41,7 @@ export default function AdminSettingsPage() {
                 </div>
                 <div className="flex justify-between py-1.5">
                   <span className="text-text-secondary">Authority Region</span>
-                  <span className="font-bold text-text-primary">Dar es Salaam (TMWA)</span>
+                  <span className="font-bold text-text-primary">Mbeya (MWMA)</span>
                 </div>
               </CardContent>
             </Card>
