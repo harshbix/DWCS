@@ -1,183 +1,254 @@
 'use client';
 
-import React from 'react';
-import { Bell, User, HelpCircle, LogOut, ChevronDown, Check, Shield, Truck } from 'lucide-react';
-import { useAuthStore, UserRole } from '@/stores/auth.store';
+import React, { useState } from 'react';
+import {
+  Bell,
+  User,
+  LogOut,
+  Leaf,
+  Settings,
+  HelpCircle,
+  X,
+  Menu,
+} from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useNotifications } from '@/hooks/useNotifications';
 import { useSidebarStore } from '@/stores/sidebar.store';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/utils/cn';
-import { toast } from '@/utils/toast';
 import { formatRelativeTime } from '@/utils/format';
 
 /**
- * Top Navigation bar composing notification drawers, quick info sheets, and portal role togglers.
- * Notifications are sourced live from the database via useNotifications hook.
+ * TopNavigation
+ *
+ * A clean, focused header bar. Responsibilities:
+ * - Brand identity (EcoCollect / MWMA)
+ * - Sidebar toggle on admin layouts
+ * - Live notifications drawer
+ * - Profile menu with sign-out
+ *
+ * Intentionally does NOT include a role-switcher (that was confusing UX).
+ * The user's role is determined server-side and shown in their profile badge.
  */
 export function TopNavigation() {
-  const { role, setRole } = useAuthStore();
-  const { profile, logout } = useAuth();
+  const { profile, logout, role } = useAuth();
   const { notifications, unreadCount, markAsRead, markAllAsRead } = useNotifications(profile?.id);
   const { toggleOpen, isOpen } = useSidebarStore();
 
-  const handleRoleChange = (targetRole: UserRole) => {
-    const roles = profile?.roles ?? [];
-    if (roles.includes('admin') || roles.includes('supervisor') || roles.includes(targetRole)) {
-      setRole(targetRole);
-    } else {
-      toast.error('Access Denied', `You do not have the ${targetRole} portal role assigned.`);
-    }
-  };
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+
+  const roleLabel =
+    role === 'admin' ? 'Admin' : role === 'driver' ? 'Collector' : 'Citizen';
+  const roleBg =
+    role === 'admin'
+      ? 'bg-warning/10 text-warning'
+      : role === 'driver'
+      ? 'bg-info/10 text-info'
+      : 'bg-primary/10 text-primary';
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-outline/10 bg-surface-container-lowest px-4 shadow-xs select-none">
-      {/* Brand Logo & Name */}
-      <div className="flex items-center space-x-3">
-        {/* Collapse Trigger for Sidebar in Admin layout */}
+    <header className="sticky top-0 z-40 flex h-14 w-full items-center justify-between border-b border-outline/10 bg-surface-container-lowest px-4 shadow-elevation-1 select-none">
+      {/* Left: Brand + Sidebar toggle */}
+      <div className="flex items-center gap-3">
+        {/* Sidebar toggle — only visible in admin layout on desktop */}
         {role === 'admin' && (
           <button
             onClick={toggleOpen}
-            className="mr-2 rounded-lg p-1.5 hover:bg-surface-container-low text-text-secondary hover:text-text-primary transition-colors cursor-pointer focus:outline-none"
-            aria-label="Toggle sidebar"
+            className="hidden md:flex items-center justify-center h-8 w-8 rounded-lg text-on-surface/50 hover:bg-surface-container hover:text-on-surface transition-all duration-150 cursor-pointer focus:outline-none"
+            aria-label={isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
           >
-            <svg
-              className={cn('h-5 w-5 transform transition-transform', isOpen && 'rotate-180')}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <Menu className="h-4 w-4" />
           </button>
         )}
 
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-white font-bold text-sm tracking-wider">
-          TZ
-        </div>
-        <div className="flex flex-col">
-          <span className="font-bold text-sm leading-tight text-text-primary">EcoCollect</span>
-          <span className="text-[10px] text-text-secondary font-medium tracking-wider uppercase">Tanzania (TMWA)</span>
+        {/* Logo */}
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary shadow-sm">
+            <Leaf className="h-4 w-4 text-white" />
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold text-sm leading-none text-on-surface">EcoCollect</span>
+            <span className="text-[9px] text-on-surface/40 font-medium tracking-widest uppercase mt-0.5">
+              Mbeya · MWMA
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* Action Tray */}
-      <div className="flex items-center space-x-2 sm:space-x-4">
-        {/* Role Switcher */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button className="flex items-center space-x-2 rounded-lg border border-outline/10 bg-surface-container-low px-3 py-1.5 text-xs font-semibold text-text-primary hover:bg-surface-container-high transition-all cursor-pointer focus:outline-none">
-              <span className="capitalize">{role} Portal</span>
-              <ChevronDown className="h-3 w-3 text-text-secondary" />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="right">
-            <DropdownMenuItem onClick={() => handleRoleChange('citizen')}>
-              <div className="flex w-full items-center justify-between">
-                <span className="flex items-center"><User className="mr-2 h-4 w-4 text-primary" /> Citizen</span>
-                {role === 'citizen' && <Check className="h-4 w-4 text-primary" />}
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleRoleChange('driver')}>
-              <div className="flex w-full items-center justify-between">
-                <span className="flex items-center"><Truck className="mr-2 h-4 w-4 text-tertiary" /> Driver</span>
-                {role === 'driver' && <Check className="h-4 w-4 text-tertiary" />}
-              </div>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleRoleChange('admin')}>
-              <div className="flex w-full items-center justify-between">
-                <span className="flex items-center"><Shield className="mr-2 h-4 w-4 text-yellow-600" /> Admin</span>
-                {role === 'admin' && <Check className="h-4 w-4 text-yellow-600" />}
-              </div>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+      {/* Right: Notifications + Profile */}
+      <div className="flex items-center gap-1.5">
 
-        {/* Notifications Bell — sourced from database */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button
-              className="relative rounded-lg p-2 text-text-secondary hover:bg-surface-container-low hover:text-text-primary transition-colors cursor-pointer focus:outline-none"
-              aria-label="Open notifications"
-            >
-              <Bell className="h-5 w-5" />
-              {unreadCount > 0 && (
-                <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-error text-[9px] font-bold text-white ring-2 ring-surface-container-lowest">
-                  {unreadCount > 9 ? '9+' : unreadCount}
-                </span>
-              )}
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="right" className="w-80 p-2">
-            <div className="flex items-center justify-between border-b border-outline/5 px-2 pb-2 mb-2">
-              <span className="font-semibold text-sm">Notifications</span>
-              {unreadCount > 0 && (
-                <button
-                  onClick={markAllAsRead}
-                  className="text-xs text-primary hover:underline font-medium cursor-pointer"
-                >
-                  Mark all as read
-                </button>
-              )}
-            </div>
-            <div className="flex flex-col max-h-72 overflow-y-auto divide-y divide-outline/5">
-              {notifications.length === 0 ? (
-                <div className="py-10 text-center text-xs text-text-secondary">
-                  <Bell className="h-6 w-6 mx-auto mb-2 text-outline" />
-                  No notifications yet
+        {/* ── Notifications ────────────────────────────────────────────────── */}
+        <div className="relative">
+          <button
+            onClick={() => { setNotifOpen(!notifOpen); setProfileOpen(false); }}
+            className="relative flex h-9 w-9 items-center justify-center rounded-xl text-on-surface/60 hover:bg-surface-container hover:text-on-surface transition-all duration-150 cursor-pointer focus:outline-none"
+            aria-label={`Notifications${unreadCount > 0 ? ` — ${unreadCount} unread` : ''}`}
+          >
+            <Bell className="h-4.5 w-4.5" />
+            {unreadCount > 0 && (
+              <span className="absolute right-1.5 top-1.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-error text-[8px] font-bold text-white ring-2 ring-surface-container-lowest">
+                {unreadCount > 9 ? '9+' : unreadCount}
+              </span>
+            )}
+          </button>
+
+          {/* Notifications panel */}
+          {notifOpen && (
+            <>
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setNotifOpen(false)}
+                aria-hidden="true"
+              />
+              <div className="absolute right-0 top-full z-50 mt-2 w-80 rounded-2xl border border-outline/10 bg-surface-container-lowest shadow-floating animate-scale-in overflow-hidden">
+                <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-outline/5">
+                  <div>
+                    <p className="font-bold text-sm text-on-surface">Notifications</p>
+                    {unreadCount > 0 && (
+                      <p className="text-[10px] text-on-surface/50 mt-0.5">
+                        {unreadCount} unread
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {unreadCount > 0 && (
+                      <button
+                        onClick={markAllAsRead}
+                        className="text-[10px] text-primary hover:underline font-semibold cursor-pointer"
+                      >
+                        Mark all read
+                      </button>
+                    )}
+                    <button
+                      onClick={() => setNotifOpen(false)}
+                      className="h-6 w-6 flex items-center justify-center rounded-lg text-on-surface/40 hover:bg-surface-container hover:text-on-surface transition-colors cursor-pointer"
+                      aria-label="Close notifications"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
                 </div>
-              ) : (
-                notifications.map((n) => (
-                  <button
-                    key={n.id}
-                    onClick={() => !n.isRead && markAsRead(n.id)}
+
+                <div className="max-h-72 overflow-y-auto divide-y divide-outline/5">
+                  {notifications.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center py-10 gap-2">
+                      <div className="h-10 w-10 rounded-full bg-surface-container flex items-center justify-center">
+                        <Bell className="h-5 w-5 text-on-surface/30" />
+                      </div>
+                      <p className="text-xs text-on-surface/40 font-medium">No notifications yet</p>
+                    </div>
+                  ) : (
+                    notifications.map((n) => (
+                      <button
+                        key={n.id}
+                        onClick={() => { if (!n.isRead) markAsRead(n.id); }}
+                        className={cn(
+                          'w-full text-left px-4 py-3 flex gap-3 transition-colors hover:bg-surface-container-low/50',
+                          !n.isRead && 'bg-primary/4'
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            'mt-1 h-2 w-2 rounded-full shrink-0',
+                            n.isRead ? 'bg-transparent' : 'bg-primary'
+                          )}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between gap-2">
+                            <p className="text-xs font-semibold text-on-surface leading-tight">
+                              {n.title}
+                            </p>
+                            <span className="text-[9px] text-on-surface/40 shrink-0 mt-0.5">
+                              {formatRelativeTime(n.createdAt)}
+                            </span>
+                          </div>
+                          <p className="text-xs text-on-surface/60 leading-snug mt-0.5 line-clamp-2">
+                            {n.message}
+                          </p>
+                        </div>
+                      </button>
+                    ))
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* ── Profile ───────────────────────────────────────────────────────── */}
+        <div className="relative">
+          <button
+            onClick={() => { setProfileOpen(!profileOpen); setNotifOpen(false); }}
+            className="flex items-center gap-2 h-9 rounded-xl px-2 hover:bg-surface-container transition-all duration-150 cursor-pointer focus:outline-none"
+            aria-label="Open profile menu"
+          >
+            <Avatar
+              fallback={profile?.full_name?.substring(0, 2).toUpperCase() ?? 'EC'}
+              className="h-7 w-7 text-[10px]"
+            />
+            <span
+              className={cn(
+                'hidden sm:inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider',
+                roleBg
+              )}
+            >
+              {roleLabel}
+            </span>
+          </button>
+
+          {/* Profile panel */}
+          {profileOpen && (
+            <>
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setProfileOpen(false)}
+                aria-hidden="true"
+              />
+              <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-2xl border border-outline/10 bg-surface-container-lowest shadow-floating animate-scale-in overflow-hidden">
+                {/* User info */}
+                <div className="px-4 py-3 border-b border-outline/5">
+                  <p className="font-semibold text-sm text-on-surface leading-none">
+                    {profile?.full_name ?? 'Guest User'}
+                  </p>
+                  <p className="text-[10px] text-on-surface/50 mt-1 leading-none">
+                    {profile?.email ?? '—'}
+                  </p>
+                  <span
                     className={cn(
-                      'py-2.5 px-2 flex flex-col space-y-0.5 hover:bg-surface-container-low/50 rounded-md transition-colors text-left w-full',
-                      !n.isRead && 'bg-primary/5'
+                      'inline-flex items-center mt-2 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider',
+                      roleBg
                     )}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="font-semibold text-xs text-text-primary leading-tight">{n.title}</span>
-                      <span className="text-[9px] text-text-secondary shrink-0 ml-2">
-                        {formatRelativeTime(n.createdAt)}
-                      </span>
-                    </div>
-                    <p className="text-xs text-text-secondary leading-normal">{n.message}</p>
-                    {!n.isRead && (
-                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary mt-0.5 self-end" />
-                    )}
-                  </button>
-                ))
-              )}
-            </div>
-          </DropdownMenuContent>
-        </DropdownMenu>
+                    {roleLabel}
+                  </span>
+                </div>
 
-        {/* Profile Avatar Actions */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button className="flex items-center space-x-1.5 rounded-lg p-1 hover:bg-surface-container-low cursor-pointer focus:outline-none">
-              <Avatar fallback={profile?.full_name?.substring(0, 2).toUpperCase() ?? 'EM'} className="h-8 w-8" />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="right" className="w-56 p-1">
-            <div className="px-3 py-2 border-b border-outline/5 mb-1.5">
-              <p className="font-semibold text-xs leading-none text-text-primary">{profile?.full_name ?? 'Guest User'}</p>
-              <p className="text-[10px] leading-none text-text-secondary mt-1">{profile?.email ?? 'guest@example.com'}</p>
-            </div>
-            <DropdownMenuItem className="text-xs">
-              <User className="mr-2 h-4 w-4 text-text-secondary" /> Account Settings
-            </DropdownMenuItem>
-            <DropdownMenuItem className="text-xs">
-              <HelpCircle className="mr-2 h-4 w-4 text-text-secondary" /> Support Hub
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={logout} className="text-xs text-error hover:bg-error/5">
-              <LogOut className="mr-2 h-4 w-4 text-error" /> Sign Out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+                {/* Menu items */}
+                <div className="p-1.5">
+                  <button className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-on-surface hover:bg-surface-container-low transition-colors cursor-pointer">
+                    <User className="h-4 w-4 text-on-surface/50" />
+                    Account Settings
+                  </button>
+                  <button className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-on-surface hover:bg-surface-container-low transition-colors cursor-pointer">
+                    <HelpCircle className="h-4 w-4 text-on-surface/50" />
+                    Support Hub
+                  </button>
+                  <div className="h-px bg-outline/5 my-1.5" />
+                  <button
+                    onClick={logout}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-error hover:bg-error/5 transition-colors cursor-pointer"
+                  >
+                    <LogOut className="h-4 w-4 text-error" />
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );

@@ -2,6 +2,8 @@
 -- Applied on: 2026-07-08
 -- Version: 20260708000000
 
+CREATE SCHEMA IF NOT EXISTS private;
+
 CREATE TABLE IF NOT EXISTS public.schema_versions (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   version text NOT NULL UNIQUE,
@@ -549,11 +551,16 @@ CREATE TABLE IF NOT EXISTS public.ai_logs (
 );
 
 -- 12. FULL TEXT SEARCH TSVECTOR FIELDS
+CREATE OR REPLACE FUNCTION public.immutable_complaint_type_to_text(val public.complaint_type)
+RETURNS text AS $$
+  SELECT val::text;
+$$ LANGUAGE sql IMMUTABLE;
+
 ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS fts_document tsvector 
   GENERATED ALWAYS AS (to_tsvector('english', coalesce(full_name, '') || ' ' || coalesce(email, '') || ' ' || coalesce(phone, ''))) STORED;
 
 ALTER TABLE public.complaints ADD COLUMN IF NOT EXISTS fts_document tsvector 
-  GENERATED ALWAYS AS (to_tsvector('english', coalesce(description, '') || ' ' || coalesce(complaint_type::text, ''))) STORED;
+  GENERATED ALWAYS AS (to_tsvector('english', coalesce(description, '') || ' ' || coalesce(public.immutable_complaint_type_to_text(complaint_type), ''))) STORED;
 
 ALTER TABLE public.streets ADD COLUMN IF NOT EXISTS fts_document tsvector 
   GENERATED ALWAYS AS (to_tsvector('english', coalesce(name, ''))) STORED;
@@ -1327,15 +1334,33 @@ $$;
 DO $$
 BEGIN
   IF EXISTS (SELECT 1 FROM pg_publication WHERE pubname = 'supabase_realtime') THEN
-    -- Drop tables if already assigned
-    ALTER PUBLICATION supabase_realtime DROP TABLE IF EXISTS public.vehicle_current_location;
-    ALTER PUBLICATION supabase_realtime DROP TABLE IF EXISTS public.notifications;
-    ALTER PUBLICATION supabase_realtime DROP TABLE IF EXISTS public.collection_schedules;
+    -- Check and add tables if not already members
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_publication_tables 
+      WHERE pubname = 'supabase_realtime' 
+        AND schemaname = 'public' 
+        AND tablename = 'vehicle_current_location'
+    ) THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE public.vehicle_current_location;
+    END IF;
     
-    -- Add tables
-    ALTER PUBLICATION supabase_realtime ADD TABLE public.vehicle_current_location;
-    ALTER PUBLICATION supabase_realtime ADD TABLE public.notifications;
-    ALTER PUBLICATION supabase_realtime ADD TABLE public.collection_schedules;
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_publication_tables 
+      WHERE pubname = 'supabase_realtime' 
+        AND schemaname = 'public' 
+        AND tablename = 'notifications'
+    ) THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE public.notifications;
+    END IF;
+
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_publication_tables 
+      WHERE pubname = 'supabase_realtime' 
+        AND schemaname = 'public' 
+        AND tablename = 'collection_schedules'
+    ) THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE public.collection_schedules;
+    END IF;
   END IF;
 EXCEPTION
   WHEN others THEN NULL;

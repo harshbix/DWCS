@@ -1,50 +1,137 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   Design System Tokens
+   Aligned to Material Design 3 color system + MWMA brand (Mbeya Green #0f5238)
+   ───────────────────────────────────────────────────────────────────────────── */
 @theme {
-  --color-primary: #0f5238;
-  --color-primary-container: #2d6a4f;
-  --color-on-primary: #ffffff;
-  --color-on-primary-container: #a8e7c5;
-  --color-secondary: #4c6452;
-  --color-secondary-container: #cce6d0;
-  --color-on-secondary-container: #506856;
-  --color-tertiary: #004691;
-  --color-tertiary-container: #005dbd;
-  --color-on-tertiary-container: #cadaff;
-  --color-background: #fcf8fb;
-  --color-surface: #fcf8fb;
-  --color-surface-container: #f0edef;
-  --color-surface-container-low: #f6f3f5;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-high: #eae7ea;
-  --color-surface-container-highest: #e4e2e4;
-  --color-on-surface: #1b1b1d;
-  --color-on-surface-variant: #404943;
-  --color-outline: #707973;
-  --color-outline-variant: #bfc9c1;
-  --color-error: #ba1a1a;
-  --color-error-container: #ffdad6;
-  --color-on-error-container: #93000a;
-  --color-primary-fixed: #b1f0ce;
-  --color-primary-fixed-dim: #95d4b3;
-  --color-secondary-fixed: #cee9d3;
-  --color-secondary-fixed-dim: #b3cdb7;
-  --color-tertiary-fixed: #d7e2ff;
-  --color-tertiary-fixed-dim: #abc7ff;
-  
+  /* ── Brand Colors ──────────────────────────────────────────────────────── */
+  --color-primary:                 #0f5238;
+  --color-primary-container:       #2d6a4f;
+  --color-on-primary:              #ffffff;
+  --color-on-primary-container:    #a8e7c5;
+
+  --color-secondary:               #4c6452;
+  --color-secondary-container:     #cce6d0;
+  --color-on-secondary-container:  #506856;
+
+  --color-tertiary:                #004691;
+  --color-tertiary-container:      #005dbd;
+  --color-on-tertiary-container:   #cadaff;
+
+  /* ── Surface & Background ──────────────────────────────────────────────── */
+  --color-background:                  #fcf8fb;
+  --color-surface:                     #fcf8fb;
+  --color-surface-container:           #f0edef;
+  --color-surface-container-low:       #f6f3f5;
+  --color-surface-container-lowest:    #ffffff;
+  --color-surface-container-high:      #eae7ea;
+  --color-surface-container-highest:   #e4e2e4;
+
+  /* ── Text / Content ────────────────────────────────────────────────────── */
+  --color-on-surface:          #1b1b1d;
+  --color-on-surface-variant:  #404943;
+  --color-outline:             #707973;
+  --color-outline-variant:     #bfc9c1;
+
+  /* ── Semantic ──────────────────────────────────────────────────────────── */
+  --color-error:               #ba1a1a;
+  --color-error-container:     #ffdad6;
+  --color-on-error-container:  #93000a;
+  --color-success:             #2d6a4f;
+  --color-warning:             #b45309;
+  --color-info:                #004691;
+
+  /* ── Fixed tints ───────────────────────────────────────────────────────── */
+  --color-primary-fixed:        #b1f0ce;
+  --color-primary-fixed-dim:    #95d4b3;
+  --color-secondary-fixed:      #cee9d3;
+  --color-secondary-fixed-dim:  #b3cdb7;
+  --color-tertiary-fixed:       #d7e2ff;
+  --color-tertiary-fixed-dim:   #abc7ff;
+
+  /* ── Typography ────────────────────────────────────────────────────────── */
   --font-plus-jakarta: "Plus Jakarta Sans", sans-serif;
-  --font-inter: "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-inter:        "Inter", sans-serif;
+  --font-mono:         "JetBrains Mono", monospace;
+
+  /* ── Animation Durations ───────────────────────────────────────────────── */
+  --duration-fast:    100ms;
+  --duration-normal:  200ms;
+  --duration-slow:    350ms;
+  --duration-slower:  500ms;
+
+  /* ── Animation Easings ─────────────────────────────────────────────────── */
+  --ease-spring:  cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-out:     cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in-out:  cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-bounce:  cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ── Border Radius Scale ───────────────────────────────────────────────── */
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  18px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+
+  /* ── Spacing Scale (4px base) ──────────────────────────────────────────── */
+  /* Tailwind's default scale is used; these are additional named tokens */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
 }
 
-/* Custom Utilities and Animations */
+/* ─────────────────────────────────────────────────────────────────────────────
+   Base Styles
+   ───────────────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus ring — only shown on keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Custom Utilities
+   ───────────────────────────────────────────────────────────────────────────── */
 @layer utilities {
+  /* Safe area insets for notched mobile devices */
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom, 20px);
   }
   .pt-safe {
     padding-top: env(safe-area-inset-top, 0px);
   }
+  .px-safe {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  /* Hide scrollbars while preserving scroll functionality */
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -52,47 +139,141 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-}
 
-@keyframes scanline {
-  0% { transform: translateY(0); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(180px); opacity: 0; }
-}
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
 
-.scan-line {
-  animation: scanline 2.5s infinite linear;
-}
+  /* Elevation shadows */
+  .shadow-elevation-1 {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.08), 0 1px 2px -1px rgba(0,0,0,0.08);
+  }
+  .shadow-elevation-2 {
+    box-shadow: 0 4px 8px -2px rgba(0,0,0,0.10), 0 2px 4px -2px rgba(0,0,0,0.06);
+  }
+  .shadow-elevation-3 {
+    box-shadow: 0 8px 24px -4px rgba(0,0,0,0.12), 0 4px 8px -4px rgba(0,0,0,0.06);
+  }
+  .shadow-floating {
+    box-shadow: 0 20px 40px -8px rgba(0,0,0,0.18), 0 8px 16px -8px rgba(0,0,0,0.08);
+  }
 
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
+  /* Interaction states */
+  .press-scale {
+    transition: transform 150ms var(--ease-spring);
+  }
+  .press-scale:active {
+    transform: scale(0.97);
+  }
+
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
   }
 }
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   Keyframe Animations
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Loading shimmer for skeleton screens */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
 .animate-shimmer {
-  animation: shimmer 2s infinite;
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-container) 25%,
+    var(--color-surface-container-high) 50%,
+    var(--color-surface-container) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
 }
 
+/* GPS pulse ring for map markers */
 @keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 0.5; }
-  100% { transform: scale(2.5); opacity: 0; }
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(2.8); opacity: 0; }
 }
-
 .pulse-marker::before {
   content: '';
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  background-color: #2d6a4f;
+  background-color: var(--color-primary-container);
   z-index: -1;
   animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
 }
 
-/* Simulated Route Line Pattern */
+/* Fade in + slide up — for page entrances */
+@keyframes fade-slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-slide-up {
+  animation: fade-slide-up 300ms var(--ease-out) both;
+}
+
+/* Scale in — for cards and modals */
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-scale-in {
+  animation: scale-in 250ms var(--ease-spring) both;
+}
+
+/* Slide up from bottom — for bottom sheets */
+@keyframes slide-up-from-bottom {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+.animate-slide-up {
+  animation: slide-up-from-bottom 350ms var(--ease-spring) both;
+}
+
+/* Slide in from right — for page transitions */
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 250ms var(--ease-out) both;
+}
+
+/* Stagger delay utilities */
+.delay-75  { animation-delay: 75ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+
+/* Spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Route line dot pattern for maps */
 .route-line {
-  background-image: radial-gradient(circle at center, #0f5238 3px, transparent 4px);
+  background-image: radial-gradient(circle at center, var(--color-primary) 3px, transparent 4px);
   background-size: 16px 16px;
   background-position: center;
+}
+
+/* Scan line for QR/scanner overlays */
+@keyframes scanline {
+  0%   { transform: translateY(0);     opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(180px); opacity: 0; }
+}
+.scan-line {
+  animation: scanline 2.5s infinite linear;
 }

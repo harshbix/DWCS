@@ -8,7 +8,7 @@ import { useNotificationStore } from '@/stores/notification.store';
 export const toast = {
   success(title: string, message: string) {
     useNotificationStore.getState().addToast({
-      id: String(Date.now()),
+      id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
       title,
       message,
       time: 'Just now',
@@ -18,7 +18,7 @@ export const toast = {
   },
   error(title: string, message: string) {
     useNotificationStore.getState().addToast({
-      id: String(Date.now()),
+      id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
       title,
       message,
       time: 'Just now',
@@ -28,12 +28,22 @@ export const toast = {
   },
   info(title: string, message: string) {
     useNotificationStore.getState().addToast({
-      id: String(Date.now()),
+      id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
       title,
       message,
       time: 'Just now',
       category: 'general',
       icon: 'info',
+    });
+  },
+  warn(title: string, message: string) {
+    useNotificationStore.getState().addToast({
+      id: typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
+      title,
+      message,
+      time: 'Just now',
+      category: 'alert',
+      icon: 'warning',
     });
   },
 };

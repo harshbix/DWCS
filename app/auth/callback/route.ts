@@ -1,44 +1,51 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/utils/supabase/server';
-import { cookies } from 'next/headers';
+import { createServerSupabaseClient } from '@/lib/supabase/server';
 
 /**
- * Server Route Handler executing OAuth code exchange and routing based on role mappings.
+ * OAuth Callback Route Handler.
+ * Exchanges the OAuth code for a session, fetches the user's role, and
+ * redirects them to the appropriate portal. New users with no role yet
+ * (race condition on DB trigger) are defaulted to the /citizen portal.
  */
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
-  const next = searchParams.get('next') ?? '/';
 
   if (code) {
-    const cookieStore = await cookies();
-    const supabase = createClient(cookieStore);
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const supabase = await createServerSupabaseClient();
+    const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
 
-    if (!error) {
-      const { data: { user } } = await supabase.auth.getUser();
+    if (!exchangeError) {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
       if (user) {
-        // Fetch user roles
+        // Fetch user roles — may be empty for brand-new Google sign-ins
         const { data: rolesData } = await supabase
           .from('user_roles')
           .select('roles(name)')
           .eq('profile_id', user.id)
           .is('deleted_at', null);
 
-        const roles = (rolesData ?? []).map((r: any) => r.roles?.name) || [];
+        const roles = (rolesData ?? []).map((r: any) => r.roles?.name as string).filter(Boolean);
 
+        // Route based on role; default new users without a role to /citizen
         if (roles.includes('admin') || roles.includes('supervisor')) {
           return NextResponse.redirect(`${origin}/admin`);
         } else if (roles.includes('driver')) {
           return NextResponse.redirect(`${origin}/driver`);
         } else {
+          // Covers: citizen role, empty roles (new Google users), or any unrecognized role
           return NextResponse.redirect(`${origin}/citizen`);
         }
       }
-      return NextResponse.redirect(`${origin}${next}`);
+
+      // Session exchanged but no user object — go to root which will redirect
+      return NextResponse.redirect(`${origin}/`);
     }
   }
 
-  // Redirect to login with error details if code exchange fails
+  // Code exchange failed — redirect to login with an error message
   return NextResponse.redirect(`${origin}/login?error=oauth_handshake_failed`);
 }

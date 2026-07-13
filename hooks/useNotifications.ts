@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
 import type { NotificationItem } from '@/types/database';
 
@@ -19,7 +19,7 @@ export function useNotifications(userId?: string): UseNotificationsReturn {
   const supabase = createBrowserSupabaseClient();
   const queryClient = useQueryClient();
 
-  const queryKey = ['notifications', userId];
+  const queryKey = useMemo(() => ['notifications', userId], [userId]);
 
   // Fetch notifications from notification_recipients + notifications join
   const { data: notifications = [], isLoading } = useQuery<NotificationItem[]>({
@@ -73,7 +73,7 @@ export function useNotifications(userId?: string): UseNotificationsReturn {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [userId]);
+  }, [userId, supabase, queryClient, queryKey]);
 
   // Mark a single notification as read
   const markAsReadMutation = useMutation({

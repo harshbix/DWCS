@@ -20,6 +20,7 @@ export function useDriverDashboard(driverId?: string) {
       return data;
     },
     enabled: !!driverId,
-    staleTime: 30 * 1000,
+    staleTime: 5 * 60 * 1000, // Cache fresh for 5 minutes (saves network data)
+    gcTime: 10 * 60 * 1000,    // Keep garbage collection cache for 10 minutes
   });
 }

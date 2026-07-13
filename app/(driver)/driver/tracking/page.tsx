@@ -15,6 +15,22 @@ import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
 import { toast } from '@/utils/toast';
 import { Navigation, Truck, MapPin } from 'lucide-react';
 
+import { LocationService } from '@/lib/map/location-service';
+
+function getDistanceKM(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * (Math.PI / 180);
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * (Math.PI / 180)) *
+      Math.cos(lat2 * (Math.PI / 180)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
 export default function DriverTrackingPage() {
   const { user } = useAuth();
   const { data: dashboardData, isLoading, error, refetch } = useDriverDashboard(user?.id);
@@ -30,7 +46,7 @@ export default function DriverTrackingPage() {
         vehicle_id: payload.vehicleId,
         latitude: payload.lat,
         longitude: payload.lng,
-        recorded_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       });
       if (error) throw error;
     },
@@ -40,15 +56,87 @@ export default function DriverTrackingPage() {
   useEffect(() => {
     if (!broadcasting || !assignedVehicle?.id) return;
 
-    const sendPing = () => {
-      const lat = -8.9000 + (Math.random() - 0.5) * 0.005;
-      const lng = 33.4500 + (Math.random() - 0.5) * 0.005;
-      updateLocation.mutate({ vehicleId: assignedVehicle.id, lat, lng });
+    let watchId: number | null = null;
+    let simInterval: NodeJS.Timeout | null = null;
+
+    const runTracking = () => {
+      if (watchId !== null) {
+        LocationService.clearWatch(watchId);
+        watchId = null;
+      }
+      if (simInterval) {
+        clearInterval(simInterval);
+        simInterval = null;
+      }
+
+      if (document.visibilityState === 'hidden') {
+        console.log('GPS broadcast paused due to background tab');
+        return;
+      }
+
+      startTracking();
     };
 
-    sendPing();
-    const interval = setInterval(sendPing, 15000);
-    return () => clearInterval(interval);
+    const lastCoordsRef = { current: null as { lat: number; lng: number } | null };
+
+    const startTracking = async () => {
+      try {
+        const permission = await LocationService.checkPermission();
+        if (permission === 'denied' || permission === 'unsupported') {
+          throw new Error('Permission denied or unsupported');
+        }
+
+        watchId = LocationService.watchPosition(
+          (coords) => {
+            const last = lastCoordsRef.current;
+            const dist = last ? getDistanceKM(last.lat, last.lng, coords.lat, coords.lng) : 999;
+            if (dist >= 0.01) { // 10 meters threshold
+              updateLocation.mutate({
+                vehicleId: assignedVehicle.id,
+                lat: coords.lat,
+                lng: coords.lng,
+              });
+              lastCoordsRef.current = { lat: coords.lat, lng: coords.lng };
+            }
+          },
+          (err) => {
+            console.error('GPS Watch error, falling back to simulated:', err);
+            startSimulation();
+          }
+        );
+      } catch (err) {
+        console.warn('Real GPS failed, using simulated movement:', err);
+        startSimulation();
+      }
+    };
+
+    const startSimulation = () => {
+      const sendSimPing = () => {
+        const lat = -8.9000 + (Math.random() - 0.5) * 0.005;
+        const lng = 33.4500 + (Math.random() - 0.5) * 0.005;
+        updateLocation.mutate({ vehicleId: assignedVehicle.id, lat, lng });
+      };
+      sendSimPing();
+      simInterval = setInterval(sendSimPing, 10000); // Throttled to 10s
+    };
+
+    runTracking();
+
+    const handleVisibility = () => {
+      runTracking();
+    };
+
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibility);
+      if (watchId !== null) {
+        LocationService.clearWatch(watchId);
+      }
+      if (simInterval) {
+        clearInterval(simInterval);
+      }
+    };
   }, [broadcasting, assignedVehicle?.id]);
 
   return (

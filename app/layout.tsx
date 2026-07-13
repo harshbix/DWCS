@@ -1,7 +1,10 @@
 import React from 'react';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Plus_Jakarta_Sans, Inter, JetBrains_Mono } from 'next/font/google';
 import { QueryProvider } from '@/providers/query-provider';
+import { AuthProvider } from '@/providers/auth-provider';
+import { ErrorBoundary } from '@/components/error-boundary';
+import 'leaflet/dist/leaflet.css';
 import '@/app/globals.css';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -26,26 +29,41 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'EcoCollect Tanzania | TMWA',
-  description: 'Government-Grade Digital Waste Collection Management System for Tanzania',
+  title: 'EcoCollect Tanzania | MWMA',
+  description:
+    'Mbeya Municipal Waste Management Authority — Digital Waste Collection Management System',
+  keywords: ['waste management', 'Mbeya', 'Tanzania', 'MWMA', 'EcoCollect'],
+  authors: [{ name: 'MWMA Digital Team' }],
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#0f5238',
 };
 
 /**
- * Root Layout that initializes fonts, Global Providers, and standard tailwind base styles.
+ * Root Layout
+ *
+ * Initializes:
+ * - Google Fonts (Plus Jakarta Sans, Inter, JetBrains Mono)
+ * - TanStack Query provider (server-to-client data caching)
+ * - AuthProvider (Supabase auth state → Zustand store sync)
+ * - Global CSS design tokens and base styles
+ * - Root ErrorBoundary (prevents blank-screen crashes)
  */
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
       className={`${plusJakartaSans.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans`}
     >
-      <body className="antialiased bg-[#fcf8fb] text-[#1b1b1d] selection:bg-primary/20">
+      <body className="antialiased bg-background text-on-surface selection:bg-primary/20 overflow-x-hidden">
         <QueryProvider>
-          {children}
+          <AuthProvider>
+            <ErrorBoundary>{children}</ErrorBoundary>
+          </AuthProvider>
         </QueryProvider>
       </body>
     </html>

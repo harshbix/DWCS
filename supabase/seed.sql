@@ -201,3 +201,60 @@ BEGIN
   END IF;
 
 END $$;
+
+-- 13. AUTO-RECONCILE EXISTING AUTH USERS TO PUBLIC PROFILES
+-- Ensures pre-existing auth users receive profiles after public schema resets.
+DO $$
+DECLARE
+  usr record;
+  v_role_id uuid;
+  v_org_id uuid;
+  v_meta_role text;
+  v_full_name text;
+  v_phone text;
+BEGIN
+  -- Retrieve default organization ID
+  SELECT id INTO v_org_id FROM public.organizations WHERE active = true LIMIT 1;
+
+  FOR usr IN SELECT * FROM auth.users LOOP
+    -- Extract user metadata parameters
+    v_meta_role := coalesce(usr.raw_user_meta_data->>'role', 'citizen');
+    v_full_name := coalesce(usr.raw_user_meta_data->>'full_name', 'EcoCollect Resident');
+    v_phone := coalesce(usr.raw_user_meta_data->>'phone', '');
+
+    -- Insert profile
+    INSERT INTO public.profiles (id, auth_user_id, organization_id, full_name, phone, email, status)
+    VALUES (
+      usr.id,
+      usr.id,
+      v_org_id,
+      v_full_name,
+      v_phone,
+      usr.email,
+      'active'::public.profile_status
+    ) ON CONFLICT (id) DO NOTHING;
+
+    -- Retrieve role ID for mapping
+    SELECT id INTO v_role_id FROM public.roles WHERE name = v_meta_role::public.user_role LIMIT 1;
+    
+    -- If role ID exists, create user roles mapping
+    IF v_role_id IS NOT NULL THEN
+      INSERT INTO public.user_roles (profile_id, role_id)
+      VALUES (usr.id, v_role_id) ON CONFLICT DO NOTHING;
+    END IF;
+
+    -- Create subtype table records
+    IF v_meta_role = 'citizen' THEN
+      INSERT INTO public.citizens (id, organization_id, address)
+      VALUES (usr.id, v_org_id, coalesce(usr.raw_user_meta_data->>'address', '')) ON CONFLICT (id) DO NOTHING;
+    ELSIF v_meta_role = 'driver' THEN
+      INSERT INTO public.drivers (id, organization_id, license_number, employment_status)
+      VALUES (
+        usr.id,
+        v_org_id,
+        coalesce(usr.raw_user_meta_data->>'license_number', 'LIC-' || upper(substring(usr.id::text from 1 for 8))),
+        'active'::public.employment_status
+      ) ON CONFLICT (id) DO NOTHING;
+    END IF;
+  END LOOP;
+END $$;
