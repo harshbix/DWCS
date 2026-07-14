@@ -4,7 +4,7 @@ import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
 /**
  * Custom hook to retrieve aggregated citizen dashboard metrics via Postgres RPC.
  */
-export function useCitizenDashboard(citizenId?: string) {
+export function useCitizenDashboard(citizenId?: string, initialData?: any) {
   const supabase = createBrowserSupabaseClient();
 
   return useQuery({
@@ -20,6 +20,7 @@ export function useCitizenDashboard(citizenId?: string) {
       return data;
     },
     enabled: !!citizenId,
+    initialData,
     staleTime: 5 * 60 * 1000, // Cache fresh for 5 minutes (saves network data)
     gcTime: 10 * 60 * 1000,    // Keep garbage collection cache for 10 minutes
   });

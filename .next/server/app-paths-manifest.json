@@ -1,6 +1,8 @@
 {
   "/(citizen)/citizen/page": "app/(citizen)/citizen/page.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/offline/page": "app/offline/page.js",
-  "/page": "app/page.js"
+  "/(citizen)/citizen/tracking/page": "app/(citizen)/citizen/tracking/page.js",
+  "/(citizen)/citizen/payments/page": "app/(citizen)/citizen/payments/page.js",
+  "/(citizen)/citizen/complaints/page": "app/(citizen)/citizen/complaints/page.js",
+  "/(citizen)/citizen/profile/page": "app/(citizen)/citizen/profile/page.js",
+  "/_not-found/page": "app/_not-found/page.js"
 }

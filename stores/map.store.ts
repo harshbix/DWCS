@@ -23,11 +23,11 @@ interface MapState {
   clearState: () => void;
 }
 
-const DEFAULT_CENTER: Coordinate = { lat: -8.9000, lng: 33.4500 }; // Mbeya, Tanzania
+const DEFAULT_CENTER: Coordinate = { lat: -8.941, lng: 33.4056 }; // Iyunga, Mbeya
 
 export const useMapStore = create<MapState>((set) => ({
   center: DEFAULT_CENTER,
-  zoom: 13,
+  zoom: 14,
   markers: [],
   routes: [],
   activeRouteId: null,

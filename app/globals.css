@@ -18,6 +18,10 @@
   --color-tertiary:                #004691;
   --color-tertiary-container:      #005dbd;
   --color-on-tertiary-container:   #cadaff;
+  --color-on-tertiary:             #ffffff;
+  --color-on-tertiary-fixed:       #001b3f;
+  --color-tertiary-fixed:          #d7e2ff;
+  --color-surface-tint:            #2c694e;
 
   /* ── Surface & Background ──────────────────────────────────────────────── */
   --color-background:                  #fcf8fb;
@@ -276,4 +280,13 @@ body {
 }
 .scan-line {
   animation: scanline 2.5s infinite linear;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Shimmer animation for loading states */
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
 }

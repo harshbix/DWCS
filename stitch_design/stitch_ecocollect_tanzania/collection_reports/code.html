@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Collection Status</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#4d6553",
+                        "on-secondary-fixed": "#002114",
+                        "on-primary-container": "#a8e7c5",
+                        "surface-variant": "#dce3ec",
+                        "surface-dim": "#d4dbe3",
+                        "inverse-primary": "#95d4b3",
+                        "primary": "#0f5238",
+                        "tertiary": "#364d3c",
+                        "on-background": "#151c22",
+                        "on-tertiary-container": "#c6e1ca",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#436b58",
+                        "inverse-surface": "#2a3138",
+                        "surface-container-low": "#eef4fd",
+                        "secondary-fixed": "#c1ecd4",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#354c3b",
+                        "primary-container": "#2d6a4f",
+                        "tertiary-fixed": "#cee9d3",
+                        "secondary-fixed-dim": "#a5d0b9",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#e8eef7",
+                        "primary-fixed-dim": "#95d4b3",
+                        "on-primary-fixed": "#002114",
+                        "secondary-container": "#beead1",
+                        "outline": "#707973",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#f6f9ff",
+                        "inverse-on-surface": "#ebf1fa",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f6f9ff",
+                        "on-secondary-fixed-variant": "#274e3d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#404943",
+                        "tertiary-fixed-dim": "#b3cdb7",
+                        "surface-tint": "#2c694e",
+                        "background": "#f6f9ff",
+                        "primary-fixed": "#b1f0ce",
+                        "on-tertiary-fixed": "#092012",
+                        "secondary": "#3f6653",
+                        "surface-container-highest": "#dce3ec",
+                        "surface-container-high": "#e2e9f1",
+                        "on-surface": "#151c22",
+                        "outline-variant": "#bfc9c1"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "xs": "4px",
+                        "touch-target-min": "44px",
+                        "edge-margin": "16px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "unit": "4px"
+                    },
+                    fontFamily: {
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-md-mobile": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-bold": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    fontSize: {
+                        "headline-sm": ["20px", { "lineHeight": "26px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md-mobile": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "label-bold": ["14px", { "lineHeight": "18px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "24px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background h-screen overflow-hidden flex flex-col pt-14 pb-16">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-outline-variant/30 dark:border-outline/30 flex justify-between items-center h-14 px-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant/50">
+<img class="w-full h-full object-cover" data-alt="A tightly framed headshot of a professional driver in a clean, modern uniform. Lighting is bright, high-key studio light with a corporate professional aesthetic. The subject is smiling slightly, positioned centrally against a light grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8a4_I83ZwHNdkUq0f3mFhqtnYL1Eh-lde2FSj_n4VhPPkgKt9P7JUTaazPDM9o1p2STV2OX_UU8NsiuZj0QcEuJP6jhcEsuSDKliiczwjQLaLMiSgvVcXN0bjjcAnv9pTk-lq9SIVNKbk3KWsrxaTFRUNtecKE1lsRMdNd2tkcrP4fKKW__WKUnzHABhB_ENeHu_pPhLSbpLTwg7_etZl2ZrFQMSW14F0575leyDBZ8o_52K_3MHdBTYg1BO46ju_uraAsDInVI5o"/>
+</div>
+<span class="font-headline-sm text-headline-sm-mobile md:text-headline-sm text-primary dark:text-inverse-primary">Vehicle ID: WM-402</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest/50 active:scale-95 duration-100 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 flex flex-col p-md gap-sm overflow-hidden h-full">
+<!-- Collapsed: Completed -->
+<section class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-md py-sm flex justify-between items-center h-[64px] shrink-0">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div>
+<h3 class="font-label-bold text-label-bold text-on-surface">Completed</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">12 stops</p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+</section>
+<!-- Expanded: Pending -->
+<section class="bg-surface-container-lowest border-l-4 border-l-primary border-y border-r border-outline-variant/50 rounded-xl flex flex-col flex-1 overflow-hidden">
+<div class="px-md py-sm flex justify-between items-center border-b border-outline-variant/30 shrink-0 h-[64px]">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">pending</span>
+</div>
+<div>
+<h3 class="font-label-bold text-label-bold text-on-surface">Pending</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Next immediate stop</p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">expand_less</span>
+</button>
+</div>
+<div class="p-md flex-1 overflow-y-auto flex flex-col justify-center">
+<div class="bg-surface border border-outline-variant/50 rounded-lg p-md">
+<div class="flex justify-between items-start mb-sm">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded font-label-sm text-label-sm inline-block">Active</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Est. 10:15 AM</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm-mobile text-on-surface mb-xs">4021 Lincoln Blvd</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Marina Del Rey, CA 90292</p>
+<button class="w-full h-12 bg-primary text-on-primary rounded-lg font-label-bold text-label-bold active:scale-95 transition-transform">
+                        Start Navigation
+                    </button>
+</div>
+</div>
+</section>
+<!-- Collapsed: Failed -->
+<section class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-md py-sm flex justify-between items-center h-[64px] shrink-0">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">error</span>
+</div>
+<div>
+<h3 class="font-label-bold text-label-bold text-on-surface">Failed</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2 stops</p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-t border-outline-variant/30 dark:border-outline/30 flex justify-around items-center h-16 px-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-[72px]" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-container text-on-secondary-container dark:text-secondary-container rounded-full px-4 py-1 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="route" data-weight="fill">route</span>
+<span class="font-label-sm text-label-sm">Route</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-[72px]" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="barcode_scanner">barcode_scanner</span>
+<span class="font-label-sm text-label-sm">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-[72px]" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="description">description</span>
+<span class="font-label-sm text-label-sm">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-[72px]" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+</body></html>

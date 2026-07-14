@@ -1,0 +1,275 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Tanzania Digital Waste Management - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#cce6d0",
+                    "secondary-fixed-dim": "#b3cdb7",
+                    "inverse-surface": "#303032",
+                    "background": "#fcf8fb",
+                    "surface-container": "#f0edef",
+                    "on-secondary-fixed-variant": "#354c3b",
+                    "on-primary-container": "#a8e7c5",
+                    "on-primary-fixed": "#002114",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#cadaff",
+                    "surface-container-highest": "#e4e2e4",
+                    "error": "#ba1a1a",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f3f0f2",
+                    "surface-container-high": "#eae7ea",
+                    "surface-container-low": "#f6f3f5",
+                    "on-surface": "#1b1b1d",
+                    "secondary-fixed": "#cee9d3",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fcf8fb",
+                    "on-secondary-container": "#506856",
+                    "on-tertiary-fixed-variant": "#00458f",
+                    "on-tertiary-fixed": "#001b3f",
+                    "inverse-primary": "#95d4b3",
+                    "on-primary-fixed-variant": "#0e5138",
+                    "primary-container": "#2d6a4f",
+                    "on-secondary-fixed": "#092012",
+                    "surface-bright": "#fcf8fb",
+                    "outline": "#707973",
+                    "primary": "#0f5238",
+                    "surface-dim": "#dcd9dc",
+                    "primary-fixed-dim": "#95d4b3",
+                    "tertiary": "#004691",
+                    "primary-fixed": "#b1f0ce",
+                    "on-surface-variant": "#404943",
+                    "on-error": "#ffffff",
+                    "on-background": "#1b1b1d",
+                    "surface-tint": "#2c694e",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#4c6452",
+                    "tertiary-fixed": "#d7e2ff",
+                    "tertiary-fixed-dim": "#abc7ff",
+                    "tertiary-container": "#005dbd",
+                    "surface-variant": "#e4e2e4",
+                    "outline-variant": "#bfc9c1",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "20px",
+                    "stack-lg": "32px",
+                    "gutter": "16px",
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "card-padding": "24px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "caption": ["Inter"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.5px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-1px", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen relative pb-safe">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 backdrop-blur-xl bg-surface/80 dark:bg-surface-dim/80 shadow-sm flex justify-between items-center px-container-margin py-stack-md w-full">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="A close-up profile picture of a young, professional Tanzanian man smiling warmly. The photo has bright, natural daylight lighting, shot outdoors against a slightly blurred, modern clean architectural background. The aesthetic is high-quality, optimistic, and corporate casual." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3AfZxWCYVOk5K-lnXngQE55oILv_THr68jLP8icBSl1umQ85_mih968c868E6xmR3aJWs8k3F7nGACMMly1TY0dyNQ4tJ5TP1iQ-kV7sQazx52IuJxbs1NHHE9oVDwl-7LjInec-1CWhCuh1VshCRV3TZ1-OWEXaJ3sJbZ06RI_Yuc8grtrfbM_uare-EvcVE93JIiDYWh9MPe3kGpNLCQ_9i2_A-jz4qkhDApCSjZTj3xahvsiNqPFm652Y0TITRhcUX-_LlWafm">
+<h1 class="font-headline-md-mobile text-headline-md-mobile text-primary dark:text-primary-fixed font-bold tracking-tight">Dar es Salaam, TZ</h1>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="pt-[96px] pb-[120px] px-container-margin flex flex-col gap-stack-lg max-w-2xl mx-auto">
+<!-- Greeting Section -->
+<section class="flex flex-col gap-unit animate-[fadeIn_0.5s_ease-out]">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Habari, Elias</h2>
+<div class="inline-flex items-center gap-1 font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Zone 4 - Upanga South</span>
+</div>
+</section>
+<!-- Hero Card (Next Collection) -->
+<section>
+<div class="bg-gradient-to-br from-primary-container to-surface-tint p-card-padding rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.08)] relative overflow-hidden text-on-primary-container active:scale-[0.98] transition-transform duration-300">
+<!-- Abstract Background Pattern -->
+<div class="absolute -right-8 -top-8 w-48 h-48 bg-on-primary-container opacity-10 rounded-full blur-3xl"></div>
+<div class="absolute -left-12 -bottom-12 w-64 h-64 bg-primary opacity-20 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col gap-stack-sm">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md uppercase tracking-wider opacity-90">Next Collection</span>
+<div class="w-8 h-8 rounded-full bg-on-primary-container/20 flex items-center justify-center backdrop-blur-sm">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">recycling</span>
+</div>
+</div>
+<div class="font-display-lg text-display-lg mt-2 drop-shadow-sm">2 Days</div>
+<div class="font-body-md text-body-md opacity-90 flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        Friday, Oct 20
+                    </div>
+</div>
+</div>
+</section>
+<!-- Live Status Card -->
+<section>
+<div class="bg-surface-container-lowest p-card-padding rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] flex flex-col gap-stack-md border border-outline-variant/20">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md-mobile text-headline-md-mobile text-on-surface">On Route</h3>
+<div class="bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1.5 rounded-full font-label-md text-label-md flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px] animate-pulse">radar</span> Active
+                    </div>
+</div>
+<div class="flex items-center gap-stack-md bg-surface-container-low p-3 rounded-lg mt-2">
+<div class="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<div>
+<div class="font-body-md text-body-md text-on-surface-variant">Truck is</div>
+<div class="font-headline-md-mobile text-headline-md-mobile text-tertiary">1.2km away</div>
+</div>
+</div>
+<!-- Progress Line -->
+<div class="w-full bg-surface-container h-2.5 rounded-full overflow-hidden mt-1 relative">
+<div class="absolute inset-0 bg-surface-container"></div>
+<div class="bg-tertiary h-full rounded-full relative overflow-hidden" style="width: 75%">
+<!-- Shimmer effect -->
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Action Grid -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-stack-md">
+<!-- Pay -->
+<button class="bg-surface-container-lowest p-stack-md rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] flex flex-col items-center text-center gap-stack-sm active:scale-95 transition-all duration-200 hover:bg-surface-container-low border border-outline-variant/10">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center mb-1">
+<span class="material-symbols-outlined" style="font-size: 24px;">payments</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Pay Fee</span>
+</button>
+<!-- Track -->
+<button class="bg-surface-container-lowest p-stack-md rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] flex flex-col items-center text-center gap-stack-sm active:scale-95 transition-all duration-200 hover:bg-surface-container-low border border-outline-variant/10">
+<div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center mb-1">
+<span class="material-symbols-outlined" style="font-size: 24px;">my_location</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Track Truck</span>
+</button>
+<!-- Report -->
+<button class="bg-surface-container-lowest p-stack-md rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] flex flex-col items-center text-center gap-stack-sm active:scale-95 transition-all duration-200 hover:bg-surface-container-low border border-outline-variant/10">
+<div class="w-12 h-12 rounded-full bg-error-container text-on-error-container flex items-center justify-center mb-1">
+<span class="material-symbols-outlined" style="font-size: 24px;">report_problem</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Report Issue</span>
+</button>
+<!-- History -->
+<button class="bg-surface-container-lowest p-stack-md rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] flex flex-col items-center text-center gap-stack-sm active:scale-95 transition-all duration-200 hover:bg-surface-container-low border border-outline-variant/10">
+<div class="w-12 h-12 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center mb-1">
+<span class="material-symbols-outlined" style="font-size: 24px;">history</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">View History</span>
+</button>
+</section>
+<!-- Status Card (Payment) -->
+<section>
+<div class="bg-surface-container-lowest p-card-padding rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] flex justify-between items-center border border-outline-variant/20">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<div class="font-label-md text-label-md text-on-surface">Payment Status</div>
+</div>
+<div class="bg-secondary-container text-on-secondary-container px-3 py-1.5 rounded-full font-label-md text-label-md flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span> Paid
+                </div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl backdrop-blur-xl bg-surface/80 dark:bg-surface-dim/80 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] border-t border-outline-variant/30 dark:border-outline/30 flex justify-around items-center px-2 py-3 pb-safe md:hidden">
+<!-- Active Tab: Home -->
+<button class="flex flex-col items-center justify-center text-primary-container gap-1 active:scale-95 transition-all duration-300 flex-1">
+<div class="w-16 h-8 rounded-full bg-primary-container/10 flex items-center justify-center transition-colors duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1, 'wght' 600;">home</span>
+</div>
+<span class="font-bold text-caption text-[11px] tracking-wide">Home</span>
+</button>
+<!-- Inactive Tabs -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 gap-1 hover:text-primary-container hover:opacity-100 active:scale-95 transition-all duration-300 flex-1">
+<div class="w-16 h-8 rounded-full flex items-center justify-center transition-colors duration-300">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<span class="font-label-md text-caption text-[11px]">Tracking</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 gap-1 hover:text-primary-container hover:opacity-100 active:scale-95 transition-all duration-300 flex-1">
+<div class="w-16 h-8 rounded-full flex items-center justify-center transition-colors duration-300">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="font-label-md text-caption text-[11px]">Payments</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 gap-1 hover:text-primary-container hover:opacity-100 active:scale-95 transition-all duration-300 flex-1">
+<div class="w-16 h-8 rounded-full flex items-center justify-center transition-colors duration-300">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<span class="font-label-md text-caption text-[11px]">Reports</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant/60 gap-1 hover:text-primary-container hover:opacity-100 active:scale-95 transition-all duration-300 flex-1">
+<div class="w-16 h-8 rounded-full flex items-center justify-center transition-colors duration-300">
+<span class="material-symbols-outlined">person</span>
+</div>
+<span class="font-label-md text-caption text-[11px]">Profile</span>
+</button>
+</nav>
+<style>
+        /* Essential safe area padding for modern mobile devices */
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            .pb-safe {
+                padding-bottom: env(safe-area-inset-bottom, 20px);
+            }
+        }
+        
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+
+</body></html>

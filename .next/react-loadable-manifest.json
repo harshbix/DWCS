@@ -1,8 +1,8 @@
 {
-  "components\\map\\map-component.tsx -> ./leaflet-map": {
-    "id": "components\\map\\map-component.tsx -> ./leaflet-map",
+  "components\\map\\map-component.tsx -> ./mapbox-map": {
+    "id": "components\\map\\map-component.tsx -> ./mapbox-map",
     "files": [
-      "static/chunks/_app-pages-browser_components_map_leaflet-map_tsx.js"
+      "static/chunks/_app-pages-browser_components_map_mapbox-map_tsx.js"
     ]
   },
   "node_modules\\next\\dist\\client\\dev\\hot-reloader\\app\\use-websocket.js -> @vercel/turbopack-ecmascript-runtime/browser/dev/hmr-client/hmr-client.ts": {

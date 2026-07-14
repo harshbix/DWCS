@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Driver Home Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#4d6553",
+                        "on-secondary-fixed": "#002114",
+                        "on-primary-container": "#a8e7c5",
+                        "surface-variant": "#dce3ec",
+                        "surface-dim": "#d4dbe3",
+                        "inverse-primary": "#95d4b3",
+                        "primary": "#0f5238",
+                        "tertiary": "#364d3c",
+                        "on-background": "#151c22",
+                        "on-tertiary-container": "#c6e1ca",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#436b58",
+                        "inverse-surface": "#2a3138",
+                        "surface-container-low": "#eef4fd",
+                        "secondary-fixed": "#c1ecd4",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#354c3b",
+                        "primary-container": "#2d6a4f",
+                        "tertiary-fixed": "#cee9d3",
+                        "secondary-fixed-dim": "#a5d0b9",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#e8eef7",
+                        "primary-fixed-dim": "#95d4b3",
+                        "on-primary-fixed": "#002114",
+                        "secondary-container": "#beead1",
+                        "outline": "#707973",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#f6f9ff",
+                        "inverse-on-surface": "#ebf1fa",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f6f9ff",
+                        "on-secondary-fixed-variant": "#274e3d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#404943",
+                        "tertiary-fixed-dim": "#b3cdb7",
+                        "surface-tint": "#2c694e",
+                        "background": "#f6f9ff",
+                        "primary-fixed": "#b1f0ce",
+                        "on-tertiary-fixed": "#092012",
+                        "secondary": "#3f6653",
+                        "surface-container-highest": "#dce3ec",
+                        "surface-container-high": "#e2e9f1",
+                        "on-surface": "#151c22",
+                        "outline-variant": "#bfc9c1"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "xs": "4px",
+                        "touch-target-min": "44px",
+                        "edge-margin": "16px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "unit": "4px"
+                    },
+                    fontFamily: {
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-md-mobile": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-bold": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    fontSize: {
+                        "headline-sm": ["20px", { "lineHeight": "26px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md-mobile": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "label-bold": ["14px", { "lineHeight": "18px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "24px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #F8F9FA;
+            /* Prevent overscroll on mobile for zero-scroll app feel */
+            overscroll-behavior-y: none;
+        }
+        /* Custom progress circle animation */
+        @keyframes progress {
+            0% { stroke-dasharray: 0 100; }
+        }
+        .circle-progress {
+            animation: progress 1.5s ease-out forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background h-screen w-screen overflow-hidden flex flex-col font-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-outline-variant/30 dark:border-outline/30 flex justify-between items-center h-14 px-md w-full">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant flex-shrink-0">
+<img alt="Driver Profile Photo" class="w-full h-full object-cover" data-alt="A close up, high resolution professional portrait photo of a municipal vehicle driver looking slightly off camera. They are wearing a dark green utilitarian uniform. The lighting is bright and even, creating a crisp modern aesthetic. The background is a soft out of focus light grey." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBTjf9Hx3nX6-LraZcZzLjtXU84Xwc8rj7Eq0RNsOEjiuOM-dVAVt9k-M9jTh1xeqMbCLpiwpf03iBsMth_FE4Qfeht-BH1fQ_uDafH8YbLuLxh5sojtgOke_Dim8qwZKN6XJwOrwZ05E3IbMnznuAeCJkW0o5ORR5dGjO8XRK3LjTM_odloV6I1ePZDorz8swcPB3rakUpOrMsHvef-ro1kQLunjp1tiUNDeIYxEFuaAoT28JR401E9vih9aFPpfDT0vsT9c67UtO"/>
+</div>
+<h1 class="font-headline-sm text-headline-sm-mobile md:text-headline-sm text-primary dark:text-inverse-primary truncate">Vehicle ID: WM-402</h1>
+</div>
+<button aria-label="Notifications" class="w-touch-target-min h-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container-highest/50 dark:hover:bg-surface-container-high/50 transition-colors active:scale-95 duration-100 text-on-surface-variant dark:text-surface-variant shrink-0">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas (Zero-scroll, centered vertically between bars) -->
+<main class="flex-1 mt-14 mb-16 p-md flex flex-col justify-center gap-md max-w-lg mx-auto w-full">
+<!-- Welcome Section -->
+<section class="mb-sm text-center">
+<h2 class="font-display-lg text-display-lg text-on-background">Good Morning, Alex</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-xs">Ready for today's assignments?</p>
+</section>
+<!-- Route Progress Card (Bento style) -->
+<div class="bg-surface-container-lowest rounded-xl border border-surface-variant p-md flex items-center justify-between shadow-sm relative overflow-hidden">
+<!-- Active State Indicator -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex flex-col gap-xs z-10 pl-sm">
+<h3 class="font-headline-sm text-headline-sm-mobile text-on-background">Route Progress</h3>
+<p class="font-label-bold text-label-bold text-primary">Active: South District</p>
+<div class="flex items-center gap-xs mt-sm">
+<span class="inline-flex items-center justify-center px-2 py-1 rounded-DEFAULT bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">In Progress</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Est. completion 14:30</span>
+</div>
+</div>
+<!-- Circular Progress -->
+<div class="relative w-24 h-24 flex-shrink-0 z-10 flex items-center justify-center">
+<!-- SVG Circle -->
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<!-- Background Circle -->
+<path class="text-surface-variant" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<!-- Progress Circle -->
+<path class="text-primary circle-progress transition-all duration-1000 ease-out" d="M18 2.0845
+                        a 15.9155 15.9155 0 0 1 0 31.831
+                        a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="25, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<!-- Text inside circle -->
+<div class="absolute flex flex-col items-center justify-center text-center">
+<span class="font-headline-md-mobile text-headline-md-mobile text-on-background">12</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">/48</span>
+</div>
+</div>
+</div>
+<!-- Quick Actions Grid -->
+<div class="grid grid-cols-2 gap-sm mt-sm">
+<!-- Primary Action - Full Width on Mobile -->
+<button class="col-span-2 bg-primary hover:bg-primary-container text-on-primary active:scale-95 transition-all duration-150 h-14 rounded-lg flex items-center justify-center gap-sm px-md shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span class="font-label-bold text-label-bold">Start Route</span>
+</button>
+<!-- Secondary Actions -->
+<button class="bg-surface-container-lowest border border-surface-variant hover:bg-surface-container-low text-on-background active:scale-95 transition-all duration-150 h-14 rounded-lg flex items-center justify-center gap-sm px-md shadow-sm">
+<span class="material-symbols-outlined text-primary">qr_code_scanner</span>
+<span class="font-label-bold text-label-bold">Scan QR</span>
+</button>
+<button class="bg-surface-container-lowest border border-surface-variant hover:bg-surface-container-low text-on-background active:scale-95 transition-all duration-150 h-14 rounded-lg flex items-center justify-center gap-sm px-md shadow-sm">
+<span class="material-symbols-outlined text-primary">map</span>
+<span class="font-label-bold text-label-bold">Track Map</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="md:hidden bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md text-primary dark:text-inverse-primary font-label-sm text-label-sm fixed bottom-0 w-full z-50 rounded-t-xl border-t border-outline-variant/30 dark:border-outline/30 shadow-lg dark:shadow-none flex justify-around items-center h-16 w-full px-sm pb-safe">
+<button aria-label="Home" class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-container text-on-secondary-container dark:text-secondary-container rounded-full px-4 py-1 hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 min-w-[64px]">
+<span class="material-symbols-outlined mb-1" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</button>
+<button aria-label="Route" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 min-w-[64px]">
+<span class="material-symbols-outlined mb-1" data-icon="route">route</span>
+<span class="font-label-sm text-label-sm">Route</span>
+</button>
+<button aria-label="Scan" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 min-w-[64px]">
+<span class="material-symbols-outlined mb-1" data-icon="barcode_scanner">barcode_scanner</span>
+<span class="font-label-sm text-label-sm">Scan</span>
+</button>
+<button aria-label="Reports" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 min-w-[64px]">
+<span class="material-symbols-outlined mb-1" data-icon="description">description</span>
+<span class="font-label-sm text-label-sm">Reports</span>
+</button>
+<button aria-label="Profile" class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 min-w-[64px]">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+</body></html>

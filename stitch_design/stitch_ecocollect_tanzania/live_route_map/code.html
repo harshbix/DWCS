@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Route Screen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#4d6553",
+                        "on-secondary-fixed": "#002114",
+                        "on-primary-container": "#a8e7c5",
+                        "surface-variant": "#dce3ec",
+                        "surface-dim": "#d4dbe3",
+                        "inverse-primary": "#95d4b3",
+                        "primary": "#0f5238",
+                        "tertiary": "#364d3c",
+                        "on-background": "#151c22",
+                        "on-tertiary-container": "#c6e1ca",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#436b58",
+                        "inverse-surface": "#2a3138",
+                        "surface-container-low": "#eef4fd",
+                        "secondary-fixed": "#c1ecd4",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#354c3b",
+                        "primary-container": "#2d6a4f",
+                        "tertiary-fixed": "#cee9d3",
+                        "secondary-fixed-dim": "#a5d0b9",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#e8eef7",
+                        "primary-fixed-dim": "#95d4b3",
+                        "on-primary-fixed": "#002114",
+                        "secondary-container": "#beead1",
+                        "outline": "#707973",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#f6f9ff",
+                        "inverse-on-surface": "#ebf1fa",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f6f9ff",
+                        "on-secondary-fixed-variant": "#274e3d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#404943",
+                        "tertiary-fixed-dim": "#b3cdb7",
+                        "surface-tint": "#2c694e",
+                        "background": "#f6f9ff",
+                        "primary-fixed": "#b1f0ce",
+                        "on-tertiary-fixed": "#092012",
+                        "secondary": "#3f6653",
+                        "surface-container-highest": "#dce3ec",
+                        "surface-container-high": "#e2e9f1",
+                        "on-surface": "#151c22",
+                        "outline-variant": "#bfc9c1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "touch-target-min": "44px",
+                        "edge-margin": "16px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-md-mobile": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-bold": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", { "lineHeight": "26px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md-mobile": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "label-bold": ["14px", { "lineHeight": "18px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "24px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.filled { font-variation-settings: 'FILL' 1; }
+        /* Hide scrollbar for clean app-like feel */
+        ::-webkit-scrollbar { display: none; }
+        * { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface h-screen w-screen overflow-hidden flex flex-col relative antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-outline-variant/30 dark:border-outline/30 flex justify-between items-center h-14 px-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">person</span>
+</div>
+<h1 class="font-headline-sm text-headline-sm-mobile md:text-headline-sm text-primary dark:text-inverse-primary">Vehicle ID: WM-402</h1>
+</div>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container-highest/50 dark:hover:bg-surface-container-high/50 transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary">notifications</span>
+</button>
+</header>
+<!-- Main Canvas (Map Area) -->
+<main class="flex-1 relative mt-14 mb-16">
+<!-- Static Map Background Placeholder -->
+<div class="absolute inset-0 w-full h-full bg-surface-container-low" data-alt="A clean, minimalist high-contrast digital map interface showing a simplified street grid of an urban area. The map uses a very light gray base with deep emerald green route lines and clean white secondary streets. The lighting is flat and uniform, optimized for outdoor visibility. A corporate modern aesthetic with no extraneous topographic details." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxgabIUYhyxXKGWFEypsZz3YD8DTPJIo_viLSFBfiOVk3HSuJkq53cgZt36GpZEeaPQYUtsgHGtSr7jLH0p3cZ818Ln7nX-rZrZ41RmwgqXGJYjelCDyNi8NvTWOc9QdKtOBjjT3U1Z1BBdaVpERdBSb6ccvXZGBY0EvyccUf8w2YuA6MBWW5fDLrjBFS79ZlL1kmBuUsbPO4n3v45d9tQmFqKmXR7yC1s2lidiowMEXiKKrxhNAwh3ciaJiZf_M196SnjvrLgjp84')">
+<!-- Simulated Route Line -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="none" viewbox="0 0 100 100">
+<path class="opacity-70" d="M20,80 Q40,40 80,20" fill="none" stroke="#0f5238" stroke-dasharray="4 4" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+<!-- Current Location Pin -->
+<div class="absolute top-[80%] left-[20%] -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-primary rounded-full border-2 border-white flex items-center justify-center shadow-md z-10">
+<div class="w-3 h-3 bg-white rounded-full"></div>
+</div>
+<!-- Next Stop Pin -->
+<div class="absolute top-[20%] left-[80%] -translate-x-1/2 -translate-y-full flex flex-col items-center z-10">
+<div class="bg-primary text-white font-label-sm text-label-sm px-2 py-1 rounded-md shadow-md mb-1 whitespace-nowrap">
+                    Kariakoo Market
+                </div>
+<span class="material-symbols-outlined filled text-primary text-3xl drop-shadow-md">location_on</span>
+</div>
+</div>
+<!-- Floating Action Sheet (Bottom) -->
+<div class="absolute bottom-md left-md right-md z-20 flex flex-col gap-sm">
+<!-- Glassmorphic Sheet -->
+<div class="bg-white/90 backdrop-blur-[20px] rounded-xl border border-outline-variant/30 shadow-lg p-md overflow-hidden flex flex-col gap-md">
+<!-- Header/Progress -->
+<div class="flex justify-between items-center border-b border-surface-variant pb-sm">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Next Stop</span>
+<h2 class="font-headline-md-mobile text-headline-md-mobile text-on-surface">Kariakoo Market</h2>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary text-sm">schedule</span>
+<span class="font-label-bold text-label-bold text-primary">3 mins</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Stop 4 of 12</span>
+</div>
+</div>
+<!-- Details List -->
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-sm bg-surface-container-lowest p-sm rounded-lg border border-surface-variant">
+<div class="w-8 h-8 rounded bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="font-body-md text-body-md text-on-surface">15 Bins</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Commercial Waste</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="w-full h-[56px] bg-primary text-on-primary rounded-lg font-label-bold text-label-bold flex items-center justify-center shadow-md active:scale-[0.98] transition-transform">
+                    Start Collection
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-t border-outline-variant/30 dark:border-outline/30 shadow-lg dark:shadow-none flex justify-around items-center h-16 px-sm md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-sm text-[10px] leading-none">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-container text-on-secondary-container dark:text-secondary-container rounded-full px-4 py-1 active:scale-90 duration-150 h-[40px]" href="#">
+<span class="material-symbols-outlined mb-1 filled">route</span>
+<span class="font-label-sm text-[10px] leading-none">Route</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1">barcode_scanner</span>
+<span class="font-label-sm text-[10px] leading-none">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1">description</span>
+<span class="font-label-sm text-[10px] leading-none">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-sm text-[10px] leading-none">Profile</span>
+</a>
+</nav>
+<!-- Side Nav for Tablet/Desktop (Hidden on Mobile) -->
+<nav class="hidden md:flex fixed top-14 left-0 h-[calc(100vh-56px)] w-20 flex-col items-center py-md bg-surface border-r border-outline-variant/30 z-40 gap-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 duration-150 w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-sm text-[10px] leading-none">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl w-14 h-14 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined mb-1 filled">route</span>
+<span class="font-label-sm text-[10px] leading-none">Route</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 duration-150 w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1">barcode_scanner</span>
+<span class="font-label-sm text-[10px] leading-none">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 duration-150 w-touch-target-min h-touch-target-min" href="#">
+<span class="material-symbols-outlined mb-1">description</span>
+<span class="font-label-sm text-[10px] leading-none">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary active:scale-90 duration-150 w-touch-target-min h-touch-target-min mt-auto" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-sm text-[10px] leading-none">Profile</span>
+</a>
+</nav>
+</body></html>

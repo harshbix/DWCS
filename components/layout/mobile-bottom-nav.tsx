@@ -27,19 +27,19 @@ interface NavItem {
 }
 
 const citizenNav: NavItem[] = [
-  { label: 'Home',       href: '/citizen',            icon: <Home className="h-5 w-5" /> },
-  { label: 'Schedule',   href: '/citizen/schedule',   icon: <CalendarClock className="h-5 w-5" /> },
-  { label: 'Payments',   href: '/citizen/payments',   icon: <CreditCard className="h-5 w-5" /> },
-  { label: 'Complaints', href: '/citizen/complaints', icon: <AlertTriangle className="h-5 w-5" /> },
-  { label: 'Profile',    href: '/citizen/profile',    icon: <User className="h-5 w-5" /> },
+  { label: 'Home',     href: '/citizen',            icon: <Home className="h-5 w-5" /> },
+  { label: 'Tracking', href: '/citizen/tracking',   icon: <Truck className="h-5 w-5" /> },
+  { label: 'Payments', href: '/citizen/payments',   icon: <CreditCard className="h-5 w-5" /> },
+  { label: 'Reports',  href: '/citizen/complaints', icon: <FileText className="h-5 w-5" /> },
+  { label: 'Profile',  href: '/citizen/profile',    icon: <User className="h-5 w-5" /> },
 ];
 
 const driverNav: NavItem[] = [
-  { label: 'Dashboard', href: '/driver',          icon: <Truck className="h-5 w-5" /> },
-  { label: 'Routes',    href: '/driver/routes',   icon: <Navigation className="h-5 w-5" /> },
-  { label: 'Tracking',  href: '/driver/tracking', icon: <MapPin className="h-5 w-5" /> },
-  { label: 'Reports',   href: '/driver/reports',  icon: <FileText className="h-5 w-5" /> },
-  { label: 'Profile',   href: '/driver/profile',  icon: <User className="h-5 w-5" /> },
+  { label: 'Home',    href: '/driver',          icon: <Home className="h-5 w-5" /> },
+  { label: 'Route',   href: '/driver/routes',   icon: <Navigation className="h-5 w-5" /> },
+  { label: 'Scan',    href: '/driver/scan',     icon: <MapPin className="h-5 w-5" /> },
+  { label: 'Reports', href: '/driver/reports',  icon: <FileText className="h-5 w-5" /> },
+  { label: 'Profile', href: '/driver/profile',  icon: <User className="h-5 w-5" /> },
 ];
 
 const adminNav: NavItem[] = [

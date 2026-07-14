@@ -4,7 +4,7 @@ import { Plus_Jakarta_Sans, Inter, JetBrains_Mono } from 'next/font/google';
 import { QueryProvider } from '@/providers/query-provider';
 import { AuthProvider } from '@/providers/auth-provider';
 import { ErrorBoundary } from '@/components/error-boundary';
-import 'leaflet/dist/leaflet.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import '@/app/globals.css';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -60,6 +60,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${plusJakartaSans.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans`}
     >
       <body className="antialiased bg-background text-on-surface selection:bg-primary/20 overflow-x-hidden">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                  for(let registration of registrations) {
+                    registration.unregister();
+                    console.log('ServiceWorker forcefully unregistered to fix dev cache.');
+                  }
+                });
+              }
+            `,
+          }}
+        />
         <QueryProvider>
           <AuthProvider>
             <ErrorBoundary>{children}</ErrorBoundary>

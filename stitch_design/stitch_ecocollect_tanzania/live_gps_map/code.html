@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GPS Tracking Command Center | TMWA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#707973",
+                        "surface-container-low": "#f3f3f6",
+                        "tertiary-fixed-dim": "#85d7ad",
+                        "secondary-fixed": "#c1ecd4",
+                        "surface-tint": "#2c694e",
+                        "on-background": "#1a1c1e",
+                        "primary-fixed-dim": "#95d4b3",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2f3133",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e2e2e5",
+                        "on-surface": "#1a1c1e",
+                        "on-error-container": "#93000a",
+                        "background": "#f9f9fc",
+                        "surface-container-highest": "#e2e2e5",
+                        "surface-bright": "#f9f9fc",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#bfc9c1",
+                        "on-tertiary-fixed": "#002113",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#3f6653",
+                        "on-secondary-container": "#436b58",
+                        "on-secondary-fixed-variant": "#274e3d",
+                        "inverse-on-surface": "#f0f0f3",
+                        "on-primary-container": "#a8e7c5",
+                        "secondary-container": "#beead1",
+                        "tertiary-fixed": "#a0f4c8",
+                        "on-primary-fixed": "#002114",
+                        "tertiary-container": "#106d4b",
+                        "on-secondary-fixed": "#002114",
+                        "primary-container": "#2d6a4f",
+                        "on-tertiary-container": "#98ebc0",
+                        "on-surface-variant": "#404943",
+                        "surface-container-high": "#e8e8ea",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#a5d0b9",
+                        "inverse-primary": "#95d4b3",
+                        "surface-container": "#eeeef0",
+                        "tertiary": "#005337",
+                        "primary-fixed": "#b1f0ce",
+                        "surface-dim": "#dadadc",
+                        "surface": "#f9f9fc",
+                        "primary": "#0f5238",
+                        "on-primary-fixed-variant": "#0e5138"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "gutter": "24px",
+                        "md": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "data-mono": ["JetBrains Mono"],
+                        "title-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "data-mono": ["13px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-overlay {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bfc9c1;
+            border-radius: 10px;
+        }
+        .map-marker-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- Sidebar (Shared Component: SideNavBar) -->
+<aside class="fixed left-0 top-0 h-full w-[280px] z-50 border-r border-outline-variant bg-surface flex flex-col py-lg">
+<div class="px-md mb-xl">
+<h1 class="text-primary font-headline-md font-bold">TMWA Admin</h1>
+<p class="text-on-surface-variant text-label-md">Municipal Waste Authority</p>
+</div>
+<nav class="flex-1 space-y-xs">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-md">Citizens</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">engineering</span>
+<span class="font-label-md">Waste Collectors</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-md">Vehicles</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-md">Zones</span>
+</a>
+<!-- ACTIVE TAB: GPS Tracking -->
+<a class="flex items-center gap-md bg-secondary-container text-on-secondary-container p-md rounded-xl mx-sm opacity-90 scale-[0.98] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label-md">GPS Tracking</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md">Payments</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-lg border-t border-outline-variant">
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md">Support</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Top Bar (Shared Component: TopNavBar) -->
+<header class="fixed top-0 right-0 w-[calc(100%-280px)] h-[64px] z-40 bg-surface border-b border-outline-variant flex justify-between items-center px-gutter">
+<div class="flex items-center gap-lg">
+<h2 class="text-on-surface font-headline-md font-bold">TMWA Dashboard</h2>
+<div class="flex items-center bg-surface-container-low px-md py-xs rounded-full gap-sm min-w-[320px]">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md w-full" placeholder="Search vehicles, zones, or drivers..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<!-- Filter Actions -->
+<button class="flex items-center gap-xs px-md py-xs rounded-full hover:bg-surface-container-high transition-all text-label-md">
+<span class="material-symbols-outlined">filter_list</span>
+                Zone: Ilala
+            </button>
+<button class="flex items-center gap-xs px-md py-xs rounded-full hover:bg-surface-container-high transition-all text-label-md">
+<span class="material-symbols-outlined">person</span>
+                Driver Status
+            </button>
+<div class="h-6 w-[1px] bg-outline-variant mx-sm"></div>
+<button class="p-xs hover:bg-surface-container-low rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-xs hover:bg-surface-container-low rounded-full transition-all">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-xs hover:bg-surface-container-low rounded-full transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="flex items-center gap-sm ml-sm cursor-pointer hover:opacity-80">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-label-md font-bold">JD</div>
+</div>
+</div>
+</header>
+<!-- Main Content: Map Canvas -->
+<main class="ml-[280px] mt-[64px] relative h-[calc(100vh-64px)] overflow-hidden bg-surface-container-lowest">
+<!-- Interactive Map Background -->
+<div class="absolute inset-0 z-0 bg-cover bg-center grayscale-[20%] opacity-90" data-alt="A highly detailed satellite-style map of Dar es Salaam, Tanzania, showing intricate street networks and the coastal landscape. The map features sophisticated GIS-style overlays with glowing emerald green routes and tiny pulsing vehicle markers. The lighting is bright and technical, with a professional light-mode aesthetic emphasizing municipal infrastructure and urban planning." data-location="Dar es Salaam" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAByi97-Oqq4Yejy-Ab_4bJF3Qd9WfSsL8zGEyJTrzYPDuFfkQFX55G9d4Npscia0p3L1MV9njuFUz-Qy-G3zk5sBBW5ixJvJL3wZ-ucIsWjdGfKlgWiXloPp9M_3QOK3E5qqa_FM5xsOhBpS0Kw4c9p-QU0f72zkEWcLrQQMsHImSkNO6NB-mJX6cFnu9mNEN22Hvgp-CRRHOnteMBrMepetHFUuzX1_st_FOfxZSHfz7ElZOUDzuFWb-bRWJYuve1-2J0QcOxaebj')">
+</div>
+<!-- Floating UI Overlays -->
+<!-- Left Sidebar: Active Vehicle List -->
+<div class="absolute left-lg top-lg bottom-lg w-80 glass-overlay z-10 rounded-xl shadow-lg flex flex-col overflow-hidden">
+<div class="p-md border-b border-white/30 bg-white/40 flex justify-between items-center">
+<h3 class="text-title-lg font-title-lg text-primary">Active Fleet</h3>
+<span class="px-2 py-1 bg-primary text-white text-[10px] font-bold rounded-full">24 LIVE</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<!-- Vehicle Card 1: En Route -->
+<div class="p-md hover:bg-white/50 cursor-pointer transition-colors border-b border-white/20 group">
+<div class="flex justify-between items-start mb-xs">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-data-mono text-body-md font-bold text-on-surface">T 123 ABC</span>
+</div>
+<span class="text-label-md text-primary bg-primary-fixed px-2 py-0.5 rounded">En Route</span>
+</div>
+<div class="grid grid-cols-2 gap-y-xs text-on-surface-variant">
+<div class="flex items-center gap-xs text-[11px]">
+<span class="material-symbols-outlined text-[14px]">speed</span>
+                            42 km/h
+                        </div>
+<div class="flex items-center gap-xs text-[11px]">
+<span class="material-symbols-outlined text-[14px]">ev_station</span>
+                            68% Fuel
+                        </div>
+</div>
+<div class="mt-sm bg-surface-container-low h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-3/4 rounded-full"></div>
+</div>
+<p class="text-[10px] mt-xs text-on-surface-variant flex justify-between">
+<span>Progress: Route 14 - Kinondoni</span>
+<span class="font-bold">75%</span>
+</p>
+</div>
+<!-- Vehicle Card 2: At Stop -->
+<div class="p-md hover:bg-white/50 cursor-pointer transition-colors border-b border-white/20">
+<div class="flex justify-between items-start mb-xs">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span class="font-data-mono text-body-md font-bold text-on-surface">T 456 DEF</span>
+</div>
+<span class="text-label-md text-amber-700 bg-amber-100 px-2 py-0.5 rounded">At Stop</span>
+</div>
+<div class="grid grid-cols-2 gap-y-xs text-on-surface-variant">
+<div class="flex items-center gap-xs text-[11px]">
+<span class="material-symbols-outlined text-[14px]">speed</span>
+                            0 km/h
+                        </div>
+<div class="flex items-center gap-xs text-[11px]">
+<span class="material-symbols-outlined text-[14px]">ev_station</span>
+                            45% Fuel
+                        </div>
+</div>
+<div class="mt-sm bg-surface-container-low h-1 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-full w-1/2 rounded-full"></div>
+</div>
+<p class="text-[10px] mt-xs text-on-surface-variant">Wait time: 04m 12s</p>
+</div>
+<!-- Vehicle Card 3: Breakdown -->
+<div class="p-md hover:bg-white/50 cursor-pointer transition-colors border-b border-white/20 bg-error-container/20">
+<div class="flex justify-between items-start mb-xs">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-data-mono text-body-md font-bold text-on-surface">T 889 GHI</span>
+</div>
+<span class="text-label-md text-error bg-error-container px-2 py-0.5 rounded">Breakdown</span>
+</div>
+<div class="grid grid-cols-2 gap-y-xs text-on-surface-variant">
+<div class="flex items-center gap-xs text-[11px]">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                            Engine Fail
+                        </div>
+<div class="flex items-center gap-xs text-[11px]">
+<span class="material-symbols-outlined text-[14px]">location_on</span>
+                            Kariakoo
+                        </div>
+</div>
+</div>
+<!-- More Vehicles... -->
+<div class="p-md hover:bg-white/50 cursor-pointer transition-colors border-b border-white/20">
+<div class="flex justify-between items-start mb-xs">
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-data-mono text-body-md font-bold text-on-surface">T 221 XYZ</span>
+</div>
+<span class="text-label-md text-primary bg-primary-fixed px-2 py-0.5 rounded">En Route</span>
+</div>
+<div class="grid grid-cols-2 gap-y-xs text-on-surface-variant">
+<div class="flex items-center gap-xs text-[11px]">
+<span class="material-symbols-outlined text-[14px]">speed</span>
+                            35 km/h
+                        </div>
+<div class="flex items-center gap-xs text-[11px]">
+<span class="material-symbols-outlined text-[14px]">ev_station</span>
+                            82% Fuel
+                        </div>
+</div>
+<div class="mt-sm bg-surface-container-low h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-1/4 rounded-full"></div>
+</div>
+<p class="text-[10px] mt-xs text-on-surface-variant">Progress: Route 02 - Masaki</p>
+</div>
+</div>
+</div>
+<!-- Right Side: Stats & Legend -->
+<div class="absolute right-lg top-lg flex flex-col gap-md z-10">
+<!-- Legend Panel -->
+<div class="glass-overlay p-md rounded-xl shadow-lg w-56">
+<h4 class="text-label-md font-bold mb-sm text-on-surface uppercase tracking-wider">Map Legend</h4>
+<div class="space-y-sm">
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 rounded-full bg-primary ring-2 ring-white"></span>
+<span class="text-body-md">En Route</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 rounded-full bg-amber-500 ring-2 ring-white"></span>
+<span class="text-body-md">At Stop / Idle</span>
+</div>
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 rounded-full bg-error ring-2 ring-white"></span>
+<span class="text-body-md">Breakdown</span>
+</div>
+</div>
+</div>
+<!-- Real-time Stats -->
+<div class="glass-overlay p-md rounded-xl shadow-lg w-56">
+<h4 class="text-label-md font-bold mb-sm text-on-surface uppercase tracking-wider">Live Metrics</h4>
+<div class="space-y-md">
+<div>
+<p class="text-[10px] text-on-surface-variant font-bold">AVG. SPEED</p>
+<p class="text-headline-md font-bold text-primary">28.4 <span class="text-label-md font-normal">km/h</span></p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant font-bold">TOTAL DISTANCE</p>
+<p class="text-headline-md font-bold text-on-surface">1,422 <span class="text-label-md font-normal">km</span></p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant font-bold">FUEL CONSUMPTION</p>
+<p class="text-headline-md font-bold text-secondary">314.5 <span class="text-label-md font-normal">L</span></p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Controls: Map Zoom/Center -->
+<div class="absolute bottom-lg right-lg flex flex-col gap-sm z-10">
+<button class="w-10 h-10 glass-overlay rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-lg">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-10 h-10 glass-overlay rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-lg">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<button class="w-10 h-10 glass-overlay rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-lg">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+</div>
+<!-- Mock Map Markers -->
+<!-- These would be dynamically placed based on data-coords in a real app -->
+<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0">
+<div class="relative w-8 h-8 map-marker-pulse cursor-pointer group">
+<span class="material-symbols-outlined text-primary text-[32px]" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<!-- Hover Info Tooltip -->
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-32 glass-overlay p-xs rounded-lg text-center text-[10px] font-bold">
+                    T 123 ABC<br/>42 km/h
+                </div>
+</div>
+</div>
+<div class="absolute left-[60%] top-[40%] z-0">
+<div class="relative w-8 h-8 cursor-pointer group">
+<span class="material-symbols-outlined text-amber-500 text-[32px]" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block w-32 glass-overlay p-xs rounded-lg text-center text-[10px] font-bold">
+                    T 456 DEF<br/>At Stop
+                </div>
+</div>
+</div>
+<div class="absolute left-[45%] top-[70%] z-0">
+<div class="relative w-8 h-8 cursor-pointer group">
+<span class="material-symbols-outlined text-error text-[32px]" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for markers
+        document.querySelectorAll('.group').forEach(marker => {
+            marker.addEventListener('click', () => {
+                const plate = marker.querySelector('div').innerText.split('\n')[0];
+                alert(`Viewing details for vehicle: ${plate}`);
+            });
+        });
+    </script>
+</body></html>

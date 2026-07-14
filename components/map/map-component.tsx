@@ -1,36 +1,48 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useMapStore } from '@/stores/map.store';
 import { useMap } from './map-provider';
 import { Compass, Plus, Minus, MapPin, Truck } from 'lucide-react';
 import { cn } from '@/utils/cn';
+import { useVehicleSimulation } from '@/hooks/useVehicleSimulation';
+import { useProximityTracking, type HomeLocation } from '@/hooks/useProximityTracking';
+import { useInView } from 'framer-motion';
 
-// Dynamically import LeafletMap with SSR disabled to avoid Node environment window crash
-const LeafletMap = dynamic(() => import('./leaflet-map'), {
+// Dynamically import MapboxMap with SSR disabled
+const MapboxMap = dynamic(() => import('./mapbox-map'), {
   ssr: false,
-  loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-surface-container gap-2">
-      <span className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-      <span className="text-xs text-on-surface/50 font-medium">Loading Map Tracker...</span>
-    </div>
-  ),
 });
 
 interface MapComponentProps {
   className?: string;
   showControls?: boolean;
+  homeLocation?: HomeLocation | null;
 }
 
-export function MapComponent({ className, showControls = true }: MapComponentProps) {
+export function MapComponent({ className, showControls = true, homeLocation }: MapComponentProps) {
   const { zoom, center, setZoom } = useMapStore();
   const { recenterOnUser } = useMap();
+  
+  // Real-time tracking simulation
+  const vehicles = useVehicleSimulation(homeLocation);
+
+  // Lazy compile & render Mapbox only when visible
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { once: true, margin: "200px" });
 
   return (
-    <div className={cn('relative w-full h-full bg-surface-container overflow-hidden select-none', className)}>
-      {/* ── Real Leaflet Vector Map ── */}
-      <LeafletMap />
+    <div ref={containerRef} className={cn('relative w-full h-full bg-surface-container overflow-hidden select-none', className)}>
+      {/* ── Real Mapbox GL JS ── */}
+      {isInView ? (
+        <MapboxMap vehicles={vehicles} homeLocation={homeLocation} />
+      ) : (
+        <div className="w-full h-full flex flex-col items-center justify-center gap-3">
+          <span className="h-6 w-6 animate-spin rounded-full border-[3px] border-primary border-t-transparent shadow-sm" />
+          <span className="text-xs text-on-surface/50 font-medium">Lazy loading mapping engine...</span>
+        </div>
+      )}
 
       {/* ── Map HUD Controls overlay ── */}
       {showControls && (

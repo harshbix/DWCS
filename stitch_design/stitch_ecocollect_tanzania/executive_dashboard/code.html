@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TMWA Admin - Executive Dashboard</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#707973",
+                    "surface-container-low": "#f3f3f6",
+                    "tertiary-fixed-dim": "#85d7ad",
+                    "secondary-fixed": "#c1ecd4",
+                    "surface-tint": "#2c694e",
+                    "on-background": "#1a1c1e",
+                    "primary-fixed-dim": "#95d4b3",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-surface": "#2f3133",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e2e2e5",
+                    "on-surface": "#1a1c1e",
+                    "on-error-container": "#93000a",
+                    "background": "#f9f9fc",
+                    "surface-container-highest": "#e2e2e5",
+                    "surface-bright": "#f9f9fc",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#bfc9c1",
+                    "on-tertiary-fixed": "#002113",
+                    "on-tertiary": "#ffffff",
+                    "secondary": "#3f6653",
+                    "on-secondary-container": "#436b58",
+                    "on-secondary-fixed-variant": "#274e3d",
+                    "inverse-on-surface": "#f0f0f3",
+                    "on-primary-container": "#a8e7c5",
+                    "secondary-container": "#beead1",
+                    "tertiary-fixed": "#a0f4c8",
+                    "on-primary-fixed": "#002114",
+                    "tertiary-container": "#106d4b",
+                    "on-secondary-fixed": "#002114",
+                    "primary-container": "#2d6a4f",
+                    "on-tertiary-container": "#98ebc0",
+                    "on-surface-variant": "#404943",
+                    "surface-container-high": "#e8e8ea",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "secondary-fixed-dim": "#a5d0b9",
+                    "inverse-primary": "#95d4b3",
+                    "surface-container": "#eeeef0",
+                    "tertiary": "#005337",
+                    "primary-fixed": "#b1f0ce",
+                    "surface-dim": "#dadadc",
+                    "surface": "#f9f9fc",
+                    "primary": "#0f5238",
+                    "on-primary-fixed-variant": "#0e5138"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "gutter": "24px",
+                    "md": "16px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "data-mono": ["JetBrains Mono"],
+                    "title-lg": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "data-mono": ["13px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-overlay {
+            backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .sidebar-active {
+            opacity: 90;
+            transform: scale(0.98);
+        }
+        .card-shadow {
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bfc9c1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-surface">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full w-[280px] z-50 bg-surface border-r border-outline-variant flex flex-col h-screen py-lg">
+<div class="px-md mb-xl">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<h1 class="text-title-lg font-title-lg text-primary leading-tight">TMWA Admin</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">Municipal Waste Authority</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-xs overflow-y-auto px-xs">
+<!-- Active State Dashboard -->
+<a class="flex items-center gap-md bg-secondary-container text-on-secondary-container p-md rounded-xl mx-sm sidebar-active transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-label-md font-label-md">Citizens</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">engineering</span>
+<span class="text-label-md font-label-md">Waste Collectors</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="text-label-md font-label-md">Vehicles</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="text-label-md font-label-md">Zones</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">location_on</span>
+<span class="text-label-md font-label-md">GPS Tracking</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-label-md font-label-md">Payments</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-label-md font-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-label-md font-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-md px-xs">
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="text-label-md font-label-md">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-280px)] h-[64px] z-40 bg-surface border-b border-outline-variant flex justify-between items-center px-gutter">
+<div class="flex items-center flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-[48px] pr-md py-sm focus:ring-2 focus:ring-primary/20 text-body-md transition-all" placeholder="Search citizens, zones, or vehicles..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-sm"></div>
+<div class="flex items-center gap-sm">
+<div class="text-right">
+<p class="text-label-md font-label-md text-on-surface">B. Mshana</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Executive Admin</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional headshot of a mature Tanzanian executive in a well-tailored navy suit, captured with high-end corporate portrait lighting in a modern office setting. The background is a soft, blurred municipal office interior with large windows and a clean, light-mode color palette. The subject exudes authority and calm efficiency, consistent with the TMWA brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5FsYw5lvGQMBy8_-PO3_8lZXelcC4pT2oD7gx8qMHiHh4G3W7mxa0Nk6dYFqdAJJKU3SWsxVSxTrrdRHGpXphYEo6CH-j-CHG0VoZB6OS-ifMbBOPDVmL7juaL-Fg2bknZn9N9PDcRamYOlLdPP5C9moRcp668mE6FUAx7qHBtVdlfY14VgezdPPCZ9zPmUQX97oBoq6sERgucFQmxJ87d9e_nyCDgbYc7nff7XcxE4JRBZlM53Eqe7g4LgzYWna2xXKu__pkaVhy"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-[280px] pt-[64px] p-gutter">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Operations Overview</h2>
+<p class="text-body-lg text-on-surface-variant">Real-time municipal performance dashboard for Dar es Salaam.</p>
+</div>
+<div class="flex gap-sm">
+<button class="bg-primary text-on-primary px-lg py-md rounded-xl font-label-md flex items-center gap-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">route</span>
+                    Assign New Route
+                </button>
+<button class="border border-primary text-primary px-lg py-md rounded-xl font-label-md flex items-center gap-sm hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                    Register Vehicle
+                </button>
+</div>
+</div>
+<!-- KPI Grid -->
+<div class="grid grid-cols-4 gap-lg mb-lg">
+<!-- Total Citizens -->
+<div class="bg-surface border border-outline-variant p-lg rounded-xl card-shadow">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-xs bg-primary-fixed rounded-lg text-on-primary-fixed-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+<span class="text-label-md text-primary font-bold">+2.4%</span>
+</div>
+<p class="text-label-md text-on-surface-variant uppercase">Total Citizens</p>
+<h3 class="text-display-lg font-display-lg text-primary">1.2M</h3>
+<div class="w-full h-8 mt-md">
+<div class="w-full h-full bg-primary/5 rounded relative overflow-hidden">
+<div class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-primary/10 to-transparent"></div>
+</div>
+</div>
+</div>
+<!-- Active Drivers -->
+<div class="bg-surface border border-outline-variant p-lg rounded-xl card-shadow">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-xs bg-secondary-fixed rounded-lg text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">engineering</span>
+</div>
+<span class="text-label-md text-secondary font-bold">Active</span>
+</div>
+<p class="text-label-md text-on-surface-variant uppercase">Active Drivers</p>
+<h3 class="text-display-lg font-display-lg text-secondary">450</h3>
+<div class="flex items-center gap-xs mt-md text-label-md text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                    98% of total workforce
+                </div>
+</div>
+<!-- Active Vehicles -->
+<div class="bg-surface border border-outline-variant p-lg rounded-xl card-shadow">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-xs bg-tertiary-fixed rounded-lg text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+</div>
+<span class="text-label-md text-tertiary font-bold">92% Fuel</span>
+</div>
+<p class="text-label-md text-on-surface-variant uppercase">Active Vehicles</p>
+<h3 class="text-display-lg font-display-lg text-tertiary">380</h3>
+<div class="flex items-center gap-xs mt-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                    12 maintenance alerts
+                </div>
+</div>
+<!-- Revenue Today -->
+<div class="bg-surface border border-outline-variant p-lg rounded-xl card-shadow">
+<div class="flex justify-between items-start mb-sm">
+<div class="p-xs bg-primary-container rounded-lg text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<span class="text-label-md text-primary font-bold">Today</span>
+</div>
+<p class="text-label-md text-on-surface-variant uppercase">Revenue Today</p>
+<h3 class="text-display-lg font-display-lg text-on-surface">12.5M</h3>
+<p class="text-label-md font-data-mono text-on-surface-variant mt-md">TZS TOTAL COLLECTIONS</p>
+</div>
+</div>
+<!-- Charts Section -->
+<div class="grid grid-cols-12 gap-lg mb-lg">
+<!-- Collection Efficiency (Line Chart) -->
+<div class="col-span-7 bg-surface border border-outline-variant p-lg rounded-xl card-shadow">
+<div class="flex justify-between items-center mb-xl">
+<div>
+<h4 class="text-title-lg font-title-lg">Collection Efficiency</h4>
+<p class="text-body-md text-on-surface-variant">Weekly performance across all districts</p>
+</div>
+<select class="bg-surface-container-low border-none rounded-lg text-label-md px-md py-sm">
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+</select>
+</div>
+<div class="h-64 flex items-end justify-between px-md relative">
+<!-- Simple CSS Graph Representation -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none px-md pb-md">
+<div class="border-b border-outline-variant h-0 w-full opacity-20"></div>
+<div class="border-b border-outline-variant h-0 w-full opacity-20"></div>
+<div class="border-b border-outline-variant h-0 w-full opacity-20"></div>
+<div class="border-b border-outline-variant h-0 w-full opacity-20"></div>
+</div>
+<div class="flex flex-col items-center gap-sm group relative z-10">
+<div class="w-12 bg-primary rounded-t-lg transition-all h-32 hover:opacity-80"></div>
+<span class="text-label-md text-on-surface-variant font-data-mono">MON</span>
+</div>
+<div class="flex flex-col items-center gap-sm group relative z-10">
+<div class="w-12 bg-primary rounded-t-lg transition-all h-40 hover:opacity-80"></div>
+<span class="text-label-md text-on-surface-variant font-data-mono">TUE</span>
+</div>
+<div class="flex flex-col items-center gap-sm group relative z-10">
+<div class="w-12 bg-primary rounded-t-lg transition-all h-28 hover:opacity-80"></div>
+<span class="text-label-md text-on-surface-variant font-data-mono">WED</span>
+</div>
+<div class="flex flex-col items-center gap-sm group relative z-10">
+<div class="w-12 bg-primary rounded-t-lg transition-all h-48 hover:opacity-80"></div>
+<span class="text-label-md text-on-surface-variant font-data-mono">THU</span>
+</div>
+<div class="flex flex-col items-center gap-sm group relative z-10">
+<div class="w-12 bg-primary rounded-t-lg transition-all h-52 hover:opacity-80"></div>
+<span class="text-label-md text-on-surface-variant font-data-mono">FRI</span>
+</div>
+<div class="flex flex-col items-center gap-sm group relative z-10">
+<div class="w-12 bg-secondary rounded-t-lg transition-all h-24 hover:opacity-80"></div>
+<span class="text-label-md text-on-surface-variant font-data-mono">SAT</span>
+</div>
+<div class="flex flex-col items-center gap-sm group relative z-10">
+<div class="w-12 bg-secondary rounded-t-lg transition-all h-20 hover:opacity-80"></div>
+<span class="text-label-md text-on-surface-variant font-data-mono">SUN</span>
+</div>
+</div>
+</div>
+<!-- Revenue by Zone (Bar Chart) -->
+<div class="col-span-5 bg-surface border border-outline-variant p-lg rounded-xl card-shadow">
+<div class="mb-xl">
+<h4 class="text-title-lg font-title-lg">Revenue by Zone</h4>
+<p class="text-body-md text-on-surface-variant">Top performing areas this month</p>
+</div>
+<div class="space-y-lg">
+<div class="space-y-sm">
+<div class="flex justify-between text-label-md">
+<span>Kariakoo</span>
+<span class="font-data-mono">4.2M TZS</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-tertiary h-full rounded-full w-[85%]"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between text-label-md">
+<span>Kinondoni</span>
+<span class="font-data-mono">3.8M TZS</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-tertiary h-full rounded-full w-[72%]"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between text-label-md">
+<span>Ilala</span>
+<span class="font-data-mono">2.1M TZS</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-tertiary h-full rounded-full w-[45%]"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between text-label-md">
+<span>Temeke</span>
+<span class="font-data-mono">1.5M TZS</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-tertiary h-full rounded-full w-[30%]"></div>
+</div>
+</div>
+</div>
+<button class="w-full mt-xl text-primary font-label-md hover:underline transition-all">View All Zones</button>
+</div>
+</div>
+<!-- Activity & Reports Grid -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- Latest Payments -->
+<div class="col-span-6 bg-surface border border-outline-variant rounded-xl card-shadow overflow-hidden">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<h4 class="text-title-lg font-title-lg">Latest Payments</h4>
+<span class="px-sm py-xs bg-primary-container text-on-primary-container text-[10px] font-bold rounded uppercase">Real-time</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container text-on-surface-variant">
+<tr>
+<th class="px-lg py-md text-label-md font-label-md">Citizen ID</th>
+<th class="px-lg py-md text-label-md font-label-md">Zone</th>
+<th class="px-lg py-md text-label-md font-label-md">Amount</th>
+<th class="px-lg py-md text-label-md font-label-md">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-data-mono text-body-md">#TZ-8821</td>
+<td class="px-lg py-md text-body-md">Kariakoo</td>
+<td class="px-lg py-md text-body-md font-bold">12,500 TZS</td>
+<td class="px-lg py-md">
+<span class="flex items-center gap-xs text-primary font-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Success
+                                    </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-data-mono text-body-md">#TZ-9014</td>
+<td class="px-lg py-md text-body-md">Kariakoo</td>
+<td class="px-lg py-md text-body-md font-bold">12,500 TZS</td>
+<td class="px-lg py-md">
+<span class="flex items-center gap-xs text-primary font-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Success
+                                    </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md font-data-mono text-body-md">#TZ-7723</td>
+<td class="px-lg py-md text-body-md">Kariakoo</td>
+<td class="px-lg py-md text-body-md font-bold">25,000 TZS</td>
+<td class="px-lg py-md">
+<span class="flex items-center gap-xs text-primary font-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Success
+                                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Missed Collections -->
+<div class="col-span-6 bg-surface border border-outline-variant rounded-xl card-shadow">
+<div class="p-lg border-b border-outline-variant flex justify-between items-center">
+<h4 class="text-title-lg font-title-lg">Missed Collections</h4>
+<span class="px-sm py-xs bg-error-container text-on-error-container text-[10px] font-bold rounded uppercase">Action Required</span>
+</div>
+<div class="p-lg space-y-md">
+<div class="flex gap-md p-md bg-surface-container-low rounded-xl border-l-4 border-error">
+<div class="p-sm bg-error-container text-on-error-container rounded-lg h-fit">
+<span class="material-symbols-outlined">report</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-on-surface">Block 12, Kinondoni</p>
+<p class="text-body-md text-on-surface-variant">Route obstructed due to road construction. 14 households skipped.</p>
+<p class="text-[10px] font-data-mono text-outline mt-sm">22 MIN AGO • REPORTED BY DRIVER-44</p>
+</div>
+</div>
+<div class="flex gap-md p-md bg-surface-container-low rounded-xl border-l-4 border-error">
+<div class="p-sm bg-error-container text-on-error-container rounded-lg h-fit">
+<span class="material-symbols-outlined">report</span>
+</div>
+<div>
+<p class="text-label-md font-bold text-on-surface">Ali Hassan Mwinyi Rd, Kinondoni</p>
+<p class="text-body-md text-on-surface-variant">Vehicle breakdown (V-092). Collection delayed for 8 locations.</p>
+<p class="text-[10px] font-data-mono text-outline mt-sm">1 HR AGO • GPS ALERT</p>
+</div>
+</div>
+<button class="w-full py-md border border-outline-variant rounded-xl text-label-md font-label-md hover:bg-surface-container-high transition-colors">
+                        Dispatch Recovery Team
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual Glass Overlays (Interactivity Demo) -->
+<div class="hidden fixed inset-0 z-[60] flex items-center justify-center p-gutter overflow-hidden" id="quick-action-modal">
+<div class="absolute inset-0 bg-on-surface/20 backdrop-blur-sm"></div>
+<div class="glass-overlay relative w-full max-w-lg rounded-2xl p-xl shadow-2xl">
+<div class="flex justify-between items-start mb-lg">
+<h3 class="text-headline-md font-headline-md">Assign New Route</h3>
+<button class="p-sm hover:bg-surface-container-highest rounded-full" onclick="document.getElementById('quick-action-modal').classList.add('hidden')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Form stub for visual completeness -->
+<div class="space-y-md">
+<div>
+<label class="text-label-md mb-xs block">Select Vehicle</label>
+<select class="w-full bg-white border border-outline-variant rounded-xl p-md">
+<option>V-092 (Kinondoni Area)</option>
+<option>V-114 (Ilala Area)</option>
+</select>
+</div>
+<div>
+<label class="text-label-md mb-xs block">Target Zone</label>
+<div class="p-md border border-outline-variant rounded-xl bg-white flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline">location_on</span>
+<input class="border-none focus:ring-0 p-0 flex-1" placeholder="Enter zone code or name..." type="text"/>
+</div>
+</div>
+<button class="w-full py-md bg-primary text-on-primary rounded-xl font-bold mt-xl">Execute Assignment</button>
+</div>
+</div>
+</div>
+<script>
+        // Simple micro-interactions
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'scale(0.98)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+
+        // Demo interaction for modal
+        function showAssignRoute() {
+            document.getElementById('quick-action-modal').classList.remove('hidden');
+        }
+        
+        // Target the button specifically
+        const assignBtn = document.querySelector('button.bg-primary.text-on-primary');
+        if(assignBtn) assignBtn.addEventListener('click', showAssignRoute);
+    </script>
+</body></html>

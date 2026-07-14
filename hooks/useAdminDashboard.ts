@@ -4,7 +4,7 @@ import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
 /**
  * Custom hook to retrieve aggregated admin metrics via Postgres RPC.
  */
-export function useAdminDashboard(organizationId?: string) {
+export function useAdminDashboard(organizationId?: string, initialData?: any) {
   const supabase = createBrowserSupabaseClient();
 
   return useQuery({
@@ -20,6 +20,7 @@ export function useAdminDashboard(organizationId?: string) {
       return data;
     },
     enabled: !!organizationId,
+    initialData,
     staleTime: 30 * 1000,
   });
 }

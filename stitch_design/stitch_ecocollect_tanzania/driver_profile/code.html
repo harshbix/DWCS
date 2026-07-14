@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Driver Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#4d6553",
+                        "on-secondary-fixed": "#002114",
+                        "on-primary-container": "#a8e7c5",
+                        "surface-variant": "#dce3ec",
+                        "surface-dim": "#d4dbe3",
+                        "inverse-primary": "#95d4b3",
+                        "primary": "#0f5238",
+                        "tertiary": "#364d3c",
+                        "on-background": "#151c22",
+                        "on-tertiary-container": "#c6e1ca",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#436b58",
+                        "inverse-surface": "#2a3138",
+                        "surface-container-low": "#eef4fd",
+                        "secondary-fixed": "#c1ecd4",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#354c3b",
+                        "primary-container": "#2d6a4f",
+                        "tertiary-fixed": "#cee9d3",
+                        "secondary-fixed-dim": "#a5d0b9",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#e8eef7",
+                        "primary-fixed-dim": "#95d4b3",
+                        "on-primary-fixed": "#002114",
+                        "secondary-container": "#beead1",
+                        "outline": "#707973",
+                        "on-primary-fixed-variant": "#0e5138",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#f6f9ff",
+                        "inverse-on-surface": "#ebf1fa",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f6f9ff",
+                        "on-secondary-fixed-variant": "#274e3d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#404943",
+                        "tertiary-fixed-dim": "#b3cdb7",
+                        "surface-tint": "#2c694e",
+                        "background": "#f6f9ff",
+                        "primary-fixed": "#b1f0ce",
+                        "on-tertiary-fixed": "#092012",
+                        "secondary": "#3f6653",
+                        "surface-container-highest": "#dce3ec",
+                        "surface-container-high": "#e2e9f1",
+                        "on-surface": "#151c22",
+                        "outline-variant": "#bfc9c1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "touch-target-min": "44px",
+                        "edge-margin": "16px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "headline-md-mobile": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-bold": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", { "lineHeight": "26px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-md-mobile": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "label-bold": ["14px", { "lineHeight": "18px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "24px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased min-h-screen pb-24 pt-16 md:pt-16 md:pb-0 flex flex-col items-center">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-b border-outline-variant/30 dark:border-outline/30 hidden md:flex">
+<div class="flex justify-between items-center h-14 px-md w-full max-w-4xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container overflow-hidden flex items-center justify-center shrink-0">
+<img class="w-full h-full object-cover" data-alt="A clean, professional headshot of a mature delivery driver looking confident and reliable. Bright daylight lighting, neutral blurred background, sharp focus on the face. Shot with a modern digital camera, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQBho6DavOrq8EeQLi1_mOfJrmxRCEiwVoRqJH_wAfP_HJOH-ojLCBPW72rjs7licg3Uu3hl5omXkLy8CwngbVDg7uBYxxCoK4xYUWjOHOt-1gVGhiTJgGdZefP7eOJBXMdTsgCKjew0mUISvz-gEck0Ia9KIrSL_eqXw7Kco2N1xCSMe-dKvVI-ySMRODtek3qiiHcd2kvXMX0Thhejd_Z8jC8mXtX46ixPQxntQUm0mBUbIlxhbbSStdeba_d9DIkg8a-640Dop-"/>
+</div>
+<span class="font-headline-sm text-headline-sm-mobile md:text-headline-sm text-primary dark:text-inverse-primary">Vehicle ID: WM-402</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-primary dark:text-inverse-primary hover:bg-surface-container-highest/50 dark:hover:bg-surface-container-high/50 transition-colors rounded-full active:scale-95 duration-100">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="w-full max-w-lg mx-auto px-edge-margin flex flex-col gap-lg flex-1">
+<!-- Profile Header -->
+<section class="flex flex-col items-center mt-xl gap-sm">
+<div class="w-24 h-24 rounded-full border-4 border-surface-container overflow-hidden shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="A clean, professional headshot of a mature delivery driver looking confident and reliable. Bright daylight lighting, neutral blurred background, sharp focus on the face. Shot with a modern digital camera, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaoJdgoURTQYrfsXmCDuoP-7ndRAPuuBWzDOhEUPJmOnMYvZvy1RkJU9_ySZEAigF0nAO_1tNCtSwgH01TgvCxOHGQzFeaIZO9vjcqCZwv7tEjKRbbnQpQwHg-ENr_B--zzdKnK4ntfBF2wMOUjPqD6E-1cJYlkTPANggZAxuO6_0kE6wP0pCvyQxL6h_KlUsgzfKqF2C2zsvG350J_Hmew-96AxvtESVY9bTr7xjNgM0Rw0SzsU_mH9ldBOYTSctxsDkB8m7OGnqJ"/>
+</div>
+<div class="text-center">
+<h1 class="font-headline-md-mobile text-headline-md-mobile md:font-headline-md md:text-headline-md text-on-background">Marcus Thorne</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Senior Field Operator</p>
+</div>
+</section>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-1 gap-md">
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-md flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" data-weight="fill">local_shipping</span>
+</div>
+<div class="flex-1">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Assigned Unit</p>
+<p class="font-headline-sm text-headline-sm-mobile text-on-background mt-1">Vehicle: WM-402</p>
+</div>
+<div class="px-2 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Active</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-md flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" data-weight="fill">timer</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Current Log</p>
+<p class="font-headline-sm text-headline-sm-mobile text-on-background mt-1">Shift Duration: 06h 45m</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-md flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-tertiary-container/20 text-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined" data-weight="fill">payments</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Today's Ledger</p>
+<p class="font-headline-sm text-headline-sm-mobile text-on-background mt-1">Total Collections: TZ 450k</p>
+</div>
+</div>
+</section>
+<!-- Actions -->
+<section class="mt-auto pt-lg flex flex-col gap-sm">
+<button class="w-full h-[56px] rounded-lg border border-error text-error font-label-bold text-label-bold flex items-center justify-center gap-2 hover:bg-error/5 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md border-t border-outline-variant/30 dark:border-outline/30 md:hidden">
+<div class="flex justify-around items-center h-16 w-full px-sm max-w-lg mx-auto">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-16 group" href="#">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform">home</span>
+<span class="font-label-sm text-label-sm text-primary dark:text-inverse-primary">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-16 group" href="#">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform">route</span>
+<span class="font-label-sm text-label-sm text-primary dark:text-inverse-primary">Route</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-16 group" href="#">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform">barcode_scanner</span>
+<span class="font-label-sm text-label-sm text-primary dark:text-inverse-primary">Scan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary active:scale-90 duration-150 w-16 group" href="#">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform">description</span>
+<span class="font-label-sm text-label-sm text-primary dark:text-inverse-primary">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-container text-on-secondary-container dark:text-secondary-container rounded-full px-4 py-1 active:scale-90 duration-150 group" href="#">
+<span class="material-symbols-outlined mb-1" data-weight="fill">person</span>
+<span class="font-label-sm text-label-sm text-primary dark:text-inverse-primary">Profile</span>
+</a>
+</div>
+</nav>
+</body></html>

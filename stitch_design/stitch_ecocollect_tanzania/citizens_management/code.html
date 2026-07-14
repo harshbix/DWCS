@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TMWA - Citizens Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#707973",
+                        "surface-container-low": "#f3f3f6",
+                        "tertiary-fixed-dim": "#85d7ad",
+                        "secondary-fixed": "#c1ecd4",
+                        "surface-tint": "#2c694e",
+                        "on-background": "#1a1c1e",
+                        "primary-fixed-dim": "#95d4b3",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2f3133",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e2e2e5",
+                        "on-surface": "#1a1c1e",
+                        "on-error-container": "#93000a",
+                        "background": "#f9f9fc",
+                        "surface-container-highest": "#e2e2e5",
+                        "surface-bright": "#f9f9fc",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#bfc9c1",
+                        "on-tertiary-fixed": "#002113",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#3f6653",
+                        "on-secondary-container": "#436b58",
+                        "on-secondary-fixed-variant": "#274e3d",
+                        "inverse-on-surface": "#f0f0f3",
+                        "on-primary-container": "#a8e7c5",
+                        "secondary-container": "#beead1",
+                        "tertiary-fixed": "#a0f4c8",
+                        "on-primary-fixed": "#002114",
+                        "tertiary-container": "#106d4b",
+                        "on-secondary-fixed": "#002114",
+                        "primary-container": "#2d6a4f",
+                        "on-tertiary-container": "#98ebc0",
+                        "on-surface-variant": "#404943",
+                        "surface-container-high": "#e8e8ea",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "secondary-fixed-dim": "#a5d0b9",
+                        "inverse-primary": "#95d4b3",
+                        "surface-container": "#eeeef0",
+                        "tertiary": "#005337",
+                        "primary-fixed": "#b1f0ce",
+                        "surface-dim": "#dadadc",
+                        "surface": "#f9f9fc",
+                        "primary": "#0f5238",
+                        "on-primary-fixed-variant": "#0e5138"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "gutter": "24px",
+                        "md": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "data-mono": ["JetBrains Mono"],
+                        "title-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "data-mono": ["13px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-overlay {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bfc9c1; border-radius: 10px; }
+        .zebra-table tr:nth-child(even) { background-color: rgba(0,0,0,0.02); }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md">
+<!-- SideNavBar (from Shared Components JSON) -->
+<nav class="fixed left-0 top-0 h-full w-[280px] z-50 bg-surface border-r border-outline-variant flex flex-col py-lg">
+<div class="px-md mb-xl">
+<h1 class="text-title-lg font-headline-md font-bold text-primary">TMWA Admin</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">Municipal Waste Authority</p>
+</div>
+<div class="flex-1 flex flex-col gap-xs overflow-y-auto">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md bg-secondary-container text-on-secondary-container p-md rounded-xl mx-sm opacity-90 scale-[0.98] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="text-label-md font-label-md">Citizens</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">engineering</span>
+<span class="text-label-md font-label-md">Waste Collectors</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="text-label-md font-label-md">Vehicles</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="text-label-md font-label-md">Zones</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">location_on</span>
+<span class="text-label-md font-label-md">GPS Tracking</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-label-md font-label-md">Payments</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-label-md font-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-label-md font-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl mx-sm hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</div>
+<div class="mt-auto px-sm flex flex-col gap-xs pt-lg border-t border-outline-variant">
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant p-md rounded-xl hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-error">logout</span>
+<span class="text-label-md font-label-md text-error">Log Out</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<main class="ml-[280px] min-h-screen flex flex-col">
+<!-- TopNavBar (from Shared Components JSON) -->
+<header class="fixed top-0 right-0 w-[calc(100%-280px)] h-[64px] z-40 bg-surface border-b border-outline-variant flex justify-between items-center px-gutter">
+<div class="flex items-center gap-md flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-[48px] pr-md py-sm text-body-md focus:ring-2 focus:ring-primary/20" placeholder="Search citizens by name, ID or phone..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-low rounded-full transition-all duration-200">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-xs"></div>
+<div class="flex items-center gap-sm">
+<div class="text-right hidden lg:block">
+<p class="text-label-md font-bold leading-none">Admin User</p>
+<p class="text-xs text-on-surface-variant">Super Administrator</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed" data-alt="A professional headshot of a municipal administrator in a bright, modern office setting. The lighting is clean and professional, matching the corporate modern aesthetic of the Tanzania Waste Authority application. The individual wears a smart business outfit, conveying reliability and governance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbzvsv1CmfRE-UAfmSElPd1Y0WPc-56auZu9Vd6of8SFAvPwNwmY_eM-7dLXGfOEOxx4XD9wmq11MUJFYVnLqwJpE81D0uOkRIOwzip6DsKHwaz7wK4-V2GTvwYCTcR9rMD7BUDO6FUZ4w6-yQvl5Mp4Na2tXrXIqU3B_AJSGFxSomTFXkW9JwPn7-7sFPk0liaQk00T2vjTVdNkWs8KfzhcoP4gLlNZC17LSFrMLLhwWV0mrvVfEG6hAXzS1SHpmGZGR0ZkxrCmbE"/>
+</div>
+</div>
+</header>
+<!-- Canvas Container -->
+<div class="mt-[64px] p-lg flex flex-col gap-lg flex-1">
+<!-- Page Header Area -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary">Citizen Management</h2>
+<p class="text-body-md text-on-surface-variant">View and manage municipal residents and waste disposal accounts.</p>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-xs px-md py-sm bg-surface-container-highest text-on-surface rounded-lg hover:bg-surface-variant transition-colors border border-outline-variant">
+<span class="material-symbols-outlined">filter_list</span>
+<span class="text-label-md">Filters</span>
+</button>
+<button class="flex items-center gap-xs px-md py-sm bg-primary text-on-primary rounded-lg shadow-sm hover:opacity-90 transition-all font-semibold">
+<span class="material-symbols-outlined">person_add</span>
+<span class="text-label-md">Add New Citizen</span>
+</button>
+</div>
+</div>
+<!-- Bento Grid Stats (Contextual Visual Interest) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md">
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl">
+<p class="text-label-md text-on-surface-variant mb-xs">Total Registered</p>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-md font-bold">12,482</span>
+<span class="text-xs text-primary font-bold">+2.4%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl">
+<p class="text-label-md text-on-surface-variant mb-xs">Payment Rate</p>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-md font-bold">88.5%</span>
+<span class="text-xs text-primary font-bold">↑ 1.2%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl">
+<p class="text-label-md text-on-surface-variant mb-xs">QR Active Status</p>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-md font-bold">11,020</span>
+<span class="text-xs text-on-surface-variant">/ 12.4k</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl">
+<p class="text-label-md text-on-surface-variant mb-xs">Revenue MoM</p>
+<div class="flex items-baseline gap-xs">
+<span class="text-headline-md font-bold">TZS 18.2M</span>
+<span class="text-xs text-primary font-bold">Stable</span>
+</div>
+</div>
+</div>
+<!-- Table Section -->
+<div class="flex-1 bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left zebra-table border-collapse">
+<thead class="bg-surface-container-high sticky top-0 z-10">
+<tr>
+<th class="p-md text-label-md font-bold text-on-surface">Citizen ID</th>
+<th class="p-md text-label-md font-bold text-on-surface">Full Name</th>
+<th class="p-md text-label-md font-bold text-on-surface">Phone Number</th>
+<th class="p-md text-label-md font-bold text-on-surface">Zone / District</th>
+<th class="p-md text-label-md font-bold text-on-surface">Payment Status</th>
+<th class="p-md text-label-md font-bold text-on-surface">QR Status</th>
+<th class="p-md text-label-md font-bold text-on-surface text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-md text-data-mono text-xs font-medium">TZ-KND-00124</td>
+<td class="p-md flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed-dim flex items-center justify-center text-on-primary-fixed font-bold text-xs">JH</div>
+<span class="font-semibold text-on-surface">Juma Hamisi</span>
+</td>
+<td class="p-md text-body-md">+255 712 345 678</td>
+<td class="p-md text-body-md">Kinondoni, District A</td>
+<td class="p-md">
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full uppercase tracking-wider">Paid</span>
+</td>
+<td class="p-md">
+<div class="flex items-center gap-xs text-primary">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="text-xs font-bold">Active</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex items-center justify-center gap-sm">
+<button class="p-xs text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Generate QR">
+<span class="material-symbols-outlined">qr_code_2</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" title="View History">
+<span class="material-symbols-outlined">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-md text-data-mono text-xs font-medium">TZ-KND-00156</td>
+<td class="p-md flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold text-xs">AM</div>
+<span class="font-semibold text-on-surface">Asha Mwinyi</span>
+</td>
+<td class="p-md text-body-md">+255 654 987 123</td>
+<td class="p-md text-body-md">Kinondoni, District B</td>
+<td class="p-md">
+<span class="px-sm py-xs bg-error-container text-on-error-container text-[10px] font-bold rounded-full uppercase tracking-wider">Overdue</span>
+</td>
+<td class="p-md">
+<div class="flex items-center gap-xs text-primary">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="text-xs font-bold">Active</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex items-center justify-center gap-sm">
+<button class="p-xs text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Generate QR">
+<span class="material-symbols-outlined">qr_code_2</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" title="View History">
+<span class="material-symbols-outlined">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-md text-data-mono text-xs font-medium">TZ-TEM-00892</td>
+<td class="p-md flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-bold text-xs">SK</div>
+<span class="font-semibold text-on-surface">Said Kibwana</span>
+</td>
+<td class="p-md text-body-md">+255 783 222 111</td>
+<td class="p-md text-body-md">Temeke, Zone 4</td>
+<td class="p-md">
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full uppercase tracking-wider">Paid</span>
+</td>
+<td class="p-md">
+<div class="flex items-center gap-xs text-outline">
+<span class="material-symbols-outlined text-[18px]">pending</span>
+<span class="text-xs font-bold">Pending</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex items-center justify-center gap-sm">
+<button class="p-xs text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Generate QR">
+<span class="material-symbols-outlined">qr_code_2</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" title="View History">
+<span class="material-symbols-outlined">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-md text-data-mono text-xs font-medium">TZ-ILK-00455</td>
+<td class="p-md flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-outline-variant flex items-center justify-center text-on-surface font-bold text-xs">EM</div>
+<span class="font-semibold text-on-surface">Emmanuel Masawe</span>
+</td>
+<td class="p-md text-body-md">+255 621 555 444</td>
+<td class="p-md text-body-md">Ilala, City Center</td>
+<td class="p-md">
+<span class="px-sm py-xs bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full uppercase tracking-wider">Paid</span>
+</td>
+<td class="p-md">
+<div class="flex items-center gap-xs text-primary">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="text-xs font-bold">Active</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex items-center justify-center gap-sm">
+<button class="p-xs text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Generate QR">
+<span class="material-symbols-outlined">qr_code_2</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" title="View History">
+<span class="material-symbols-outlined">history</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-md text-data-mono text-xs font-medium">TZ-KND-00212</td>
+<td class="p-md flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold text-xs">LM</div>
+<span class="font-semibold text-on-surface">Lulu Makoye</span>
+</td>
+<td class="p-md text-body-md">+255 744 333 999</td>
+<td class="p-md text-body-md">Kinondoni, Kawe</td>
+<td class="p-md">
+<span class="px-sm py-xs bg-error-container text-on-error-container text-[10px] font-bold rounded-full uppercase tracking-wider">Overdue</span>
+</td>
+<td class="p-md">
+<div class="flex items-center gap-xs text-primary">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="text-xs font-bold">Active</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex items-center justify-center gap-sm">
+<button class="p-xs text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Generate QR">
+<span class="material-symbols-outlined">qr_code_2</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" title="View History">
+<span class="material-symbols-outlined">history</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination footer -->
+<div class="mt-auto bg-surface-container border-t border-outline-variant p-md flex flex-col md:flex-row items-center justify-between gap-md">
+<p class="text-xs text-on-surface-variant">Showing <span class="font-bold">1-10</span> of <span class="font-bold">12,482</span> citizens</p>
+<div class="flex items-center gap-xs">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container-highest transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold text-xs">1</button>
+</div></div></div></div></main></body></html>
