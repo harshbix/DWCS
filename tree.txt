@@ -1,0 +1,277 @@
+D:\projects\DWCS
+├── app
+|  ├── (admin)
+|  |  ├── admin
+|  |  |  ├── citizens
+|  |  |  ├── complaints
+|  |  |  ├── error.tsx
+|  |  |  ├── loading.tsx
+|  |  |  ├── page.tsx
+|  |  |  ├── reports
+|  |  |  ├── settings
+|  |  |  └── tracking
+|  |  └── README.md
+|  ├── (auth)
+|  |  ├── login
+|  |  |  └── page.tsx
+|  |  ├── README.md
+|  |  └── register
+|  |     └── page.tsx
+|  ├── (citizen)
+|  |  ├── citizen
+|  |  |  ├── complaints
+|  |  |  ├── error.tsx
+|  |  |  ├── loading.tsx
+|  |  |  ├── page.tsx
+|  |  |  ├── payments
+|  |  |  ├── profile
+|  |  |  ├── schedule
+|  |  |  └── tracking
+|  |  └── README.md
+|  ├── (driver)
+|  |  ├── driver
+|  |  |  ├── error.tsx
+|  |  |  ├── loading.tsx
+|  |  |  ├── page.tsx
+|  |  |  ├── profile
+|  |  |  ├── reports
+|  |  |  ├── routes
+|  |  |  └── tracking
+|  |  └── README.md
+|  ├── (landing)
+|  |  ├── landing
+|  |  |  └── page.tsx
+|  |  └── README.md
+|  ├── auth
+|  |  └── callback
+|  |     └── route.ts
+|  ├── error.tsx
+|  ├── globals.css
+|  ├── layout.tsx
+|  ├── not-found.tsx
+|  ├── offline
+|  |  └── page.tsx
+|  ├── page.tsx
+|  └── README.md
+├── backend
+|  ├── dist
+|  |  ├── config
+|  |  |  ├── env.js
+|  |  |  └── logger.js
+|  |  ├── middleware
+|  |  |  ├── errorHandler.js
+|  |  |  └── requestValidator.js
+|  |  ├── routes
+|  |  |  ├── health.js
+|  |  |  └── index.js
+|  |  ├── server.js
+|  |  └── services
+|  |     └── supabase.js
+|  ├── package-lock.json
+|  ├── package.json
+|  ├── README.md
+|  ├── src
+|  |  ├── config
+|  |  |  ├── env.ts
+|  |  |  ├── logger.ts
+|  |  |  └── README.md
+|  |  ├── controllers
+|  |  |  └── README.md
+|  |  ├── interfaces
+|  |  |  └── README.md
+|  |  ├── middleware
+|  |  |  ├── errorHandler.ts
+|  |  |  ├── README.md
+|  |  |  └── requestValidator.ts
+|  |  ├── repositories
+|  |  |  └── README.md
+|  |  ├── routes
+|  |  |  ├── health.ts
+|  |  |  ├── index.ts
+|  |  |  └── README.md
+|  |  ├── server.ts
+|  |  ├── services
+|  |  |  ├── README.md
+|  |  |  └── supabase.ts
+|  |  ├── types
+|  |  |  └── README.md
+|  |  └── validators
+|  |     └── README.md
+|  └── tsconfig.json
+├── components
+|  ├── dashboard
+|  |  ├── admin-interactive-dashboard.tsx
+|  |  ├── admin-portal.tsx
+|  |  ├── citizen-bottom-sheet.tsx
+|  |  ├── citizen-home-dashboard.tsx
+|  |  ├── citizen-interactive-dashboard.tsx
+|  |  ├── citizen-portal.tsx
+|  |  ├── driver-interactive-dashboard.tsx
+|  |  ├── driver-portal.tsx
+|  |  ├── eco-gamification.tsx
+|  |  └── README.md
+|  ├── error-boundary.tsx
+|  ├── layout
+|  |  ├── dashboard-layout.tsx
+|  |  ├── mobile-bottom-nav.tsx
+|  |  ├── page-container.tsx
+|  |  ├── page-header.tsx
+|  |  ├── README.md
+|  |  ├── sidebar.tsx
+|  |  └── top-navigation.tsx
+|  ├── map
+|  |  ├── map-component.tsx
+|  |  ├── map-marker.tsx
+|  |  ├── map-provider.tsx
+|  |  └── mapbox-map.tsx
+|  ├── tracking
+|  |  ├── proximity-hud.tsx
+|  |  └── tracking-map-page.tsx
+|  └── ui
+|     ├── avatar.tsx
+|     ├── badge.tsx
+|     ├── button.tsx
+|     ├── card.tsx
+|     ├── dialog.tsx
+|     ├── dropdown.tsx
+|     ├── input.tsx
+|     ├── README.md
+|     ├── skeleton.tsx
+|     ├── table.tsx
+|     └── tabs.tsx
+├── config
+|  ├── env.ts
+|  └── README.md
+├── constants
+|  ├── README.md
+|  └── theme.ts
+├── docs
+|  ├── audits
+|  |  ├── bundle_analysis.md
+|  |  ├── database_review.md
+|  |  ├── final_performance_report.md
+|  |  ├── map_performance_audit.md
+|  |  ├── memory_review.md
+|  |  ├── network_review.md
+|  |  ├── PERFORMANCE_AUDIT.md
+|  |  ├── performance_baseline.md
+|  |  └── rpc_review.md
+|  └── performance
+|     ├── ANIMATION_SUMMARY.md
+|     ├── backend_report.md
+|     ├── DATABASE_AUDIT.md
+|     ├── FINAL_CHECKLIST.md
+|     ├── final_upgrade_report.md
+|     ├── frontend_report.md
+|     ├── network_report.md
+|     ├── OPTIMIZATION_REPORT.md
+|     ├── PERFORMANCE_AUDIT.md
+|     ├── SECURITY_AUDIT.md
+|     ├── security_check.md
+|     └── UX_IMPROVEMENTS.md
+├── hooks
+|  ├── useAdminDashboard.ts
+|  ├── useAuth.ts
+|  ├── useCitizenDashboard.ts
+|  ├── useComplaints.ts
+|  ├── useDriverDashboard.ts
+|  ├── useNotifications.ts
+|  ├── usePayments.ts
+|  ├── useProximityTracking.ts
+|  └── useVehicleSimulation.ts
+├── lib
+|  ├── dal
+|  |  ├── auth.ts
+|  |  ├── dashboard.ts
+|  |  └── profiles.ts
+|  ├── map
+|  |  ├── location-service.ts
+|  |  └── types.ts
+|  ├── realtime
+|  |  ├── broadcast.ts
+|  |  ├── client.ts
+|  |  ├── connection.ts
+|  |  ├── hooks.ts
+|  |  ├── presence.ts
+|  |  └── README.md
+|  └── supabase
+|     ├── admin.ts
+|     ├── browser.ts
+|     ├── middleware.ts
+|     ├── README.md
+|     └── server.ts
+├── metadata.json
+├── middleware.ts
+├── motion
+|  ├── fade.ts
+|  ├── modal.ts
+|  ├── page-transition.ts
+|  ├── README.md
+|  ├── scale.ts
+|  ├── shared.ts
+|  ├── slide.ts
+|  └── stagger.ts
+├── next-env.d.ts
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── phase2_requirements.md
+├── postcss.config.mjs
+├── providers
+|  ├── auth-provider.tsx
+|  ├── query-provider.tsx
+|  └── README.md
+├── README.md
+├── schemas
+|  ├── env.schema.ts
+|  └── README.md
+├── services
+|  ├── api
+|  |  ├── client.ts
+|  |  ├── errors.ts
+|  |  ├── interceptors.ts
+|  |  ├── README.md
+|  |  ├── request.ts
+|  |  └── response.ts
+|  └── tracking.service.ts
+├── skills-lock.json
+├── src
+|  ├── App.tsx
+|  ├── index.css
+|  └── main.tsx
+├── stitch_ecocollect_tanzania.zip
+├── stores
+|  ├── auth.store.ts
+|  ├── loading.store.ts
+|  ├── map.store.ts
+|  ├── notification.store.ts
+|  ├── README.md
+|  ├── sidebar.store.ts
+|  └── theme.store.ts
+├── supabase
+|  ├── migrations
+|  |  ├── 20260708000000_init_schema.sql
+|  |  ├── 20260712000000_perf_indexes.sql
+|  |  ├── 20260713000000_db_polish.sql
+|  |  └── 20260713000001_db_composite_indexes.sql
+|  └── seed.sql
+├── TEXTS.txt
+├── tsconfig.json
+├── tsconfig.tsbuildinfo
+├── types
+|  ├── database.ts
+|  ├── index.ts
+|  ├── README.md
+|  └── tracking.types.ts
+├── untitled.zip
+└── utils
+   ├── cn.ts
+   ├── format.ts
+   ├── permission.ts
+   ├── README.md
+   ├── storage.ts
+   └── toast.ts
+
+directory: 1480 file: 10134
+
+ignored: directory (25)
