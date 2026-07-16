@@ -6,6 +6,7 @@ import { MobileBottomNav } from '@/components/layout/mobile-bottom-nav';
 import { TopNavigation } from '@/components/layout/top-navigation';
 import { Button } from '@/components/ui/button';
 import { LogOut, Phone, Mail, BadgeCheck } from 'lucide-react';
+import Link from 'next/link';
 
 export default function DriverProfilePage() {
   const { profile, logout } = useAuth();
@@ -15,7 +16,12 @@ export default function DriverProfilePage() {
       <TopNavigation />
       <main className="flex-1 overflow-y-auto pb-20 md:pb-0">
         <div className="flex flex-col gap-5 p-4 sm:p-6 max-w-lg mx-auto">
-          <h1 className="text-xl font-bold text-text-primary">Driver Profile</h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold text-text-primary">Driver Profile</h1>
+            <Link href="/driver/profile/settings" className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1.5 rounded-full hover:bg-primary/20 transition-colors">
+              Edit
+            </Link>
+          </div>
 
           <div className="bg-gradient-to-br from-tertiary to-tertiary-container text-white rounded-2xl p-6 flex flex-col items-center gap-4">
             <div className="h-20 w-20 bg-white/10 rounded-full flex items-center justify-center text-3xl font-bold border-2 border-white/20">

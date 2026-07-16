@@ -47,6 +47,23 @@ export default function LoginPage() {
 
   const onSubmit = async (values: LoginFormValues) => {
     setLoading(true);
+
+    // Dummy Auth Bypass
+    if (values.password === 'password123') {
+      let role = 'citizen';
+      if (values.email.includes('admin')) role = 'admin';
+      else if (values.email.includes('driver')) role = 'driver';
+      else if (values.email.includes('supervisor')) role = 'supervisor';
+
+      document.cookie = `user-role=${role}; path=/; max-age=3600`;
+      document.cookie = `dummy-auth=true; path=/; max-age=3600`;
+      document.cookie = `dummy-email=${values.email}; path=/; max-age=3600`;
+
+      toast.success('Welcome back!', `Signed in successfully as ${role}.`);
+      router.push(`/${role}`);
+      return;
+    }
+
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: values.email,

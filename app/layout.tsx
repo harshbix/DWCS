@@ -57,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${plusJakartaSans.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans`}
     >
       <body className="antialiased bg-background text-on-surface selection:bg-primary/20 overflow-x-hidden">

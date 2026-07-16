@@ -52,10 +52,17 @@ export async function middleware(request: NextRequest) {
   }
 
   // ── Session check ─────────────────────────────────────────────────────────
-  // Always call getUser() (not getSession()) to verify token server-side
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const isDummyAuth = request.cookies.get('dummy-auth')?.value === 'true';
+
+  let user = null;
+
+  if (!isDummyAuth) {
+    // Always call getUser() (not getSession()) to verify token server-side
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } else {
+    user = { id: 'dummy-user-id', email: request.cookies.get('dummy-email')?.value };
+  }
 
   if (!user) {
     // Not authenticated — redirect to login

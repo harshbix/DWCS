@@ -16,45 +16,55 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
-    "/(citizen)/citizen/error": [
+    "/(admin)/admin/error": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(citizen)/citizen/error.js"
+      "static/chunks/app/(admin)/admin/error.js"
     ],
-    "/(citizen)/citizen/loading": [
+    "/(admin)/admin/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(citizen)/citizen/loading.js"
+      "static/chunks/app/(admin)/admin/loading.js"
     ],
-    "/(citizen)/citizen/page": [
+    "/(admin)/admin/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(citizen)/citizen/page.js"
+      "static/chunks/app/(admin)/admin/page.js"
     ],
-    "/(citizen)/citizen/tracking/page": [
+    "/(auth)/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(citizen)/citizen/tracking/page.js"
+      "static/chunks/app/(auth)/login/page.js"
     ],
-    "/(citizen)/citizen/payments/page": [
+    "/(driver)/driver/error": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(citizen)/citizen/payments/page.js"
+      "static/chunks/app/(driver)/driver/error.js"
     ],
-    "/(citizen)/citizen/profile/page": [
+    "/(driver)/driver/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(citizen)/citizen/profile/page.js"
+      "static/chunks/app/(driver)/driver/loading.js"
     ],
-    "/(citizen)/citizen/complaints/page": [
+    "/(driver)/driver/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(citizen)/citizen/complaints/page.js"
+      "static/chunks/app/(driver)/driver/page.js"
     ],
-    "/_not-found/page": [
+    "/(admin)/admin/tracking/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/(admin)/admin/tracking/page.js"
+    ],
+    "/(admin)/admin/citizens/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/admin/citizens/page.js"
+    ],
+    "/(admin)/admin/reports/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/admin/reports/page.js"
     ]
   }
 }

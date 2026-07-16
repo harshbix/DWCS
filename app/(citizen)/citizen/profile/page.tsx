@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
 import { MobileBottomNav } from '@/components/layout/mobile-bottom-nav';
 import { User, MapPin, CreditCard, Settings2, HelpCircle, LogOut, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -14,15 +15,15 @@ const fadeUp = {
 const MENU_SECTIONS = [
   {
     items: [
-      { icon: <User className="w-5 h-5" />, label: 'Account Settings', sub: 'Name, phone, email' },
-      { icon: <MapPin className="w-5 h-5" />, label: 'Address', sub: 'Zone, street, plot number' },
-      { icon: <CreditCard className="w-5 h-5" />, label: 'Payment Methods', sub: 'M-Pesa, Tigo, Airtel, GePG' },
-      { icon: <Settings2 className="w-5 h-5" />, label: 'App Preferences', sub: 'Language, notifications' },
+      { icon: <User className="w-5 h-5" />, label: 'Account Settings', sub: 'Name, phone, email', href: '/citizen/profile/settings' },
+      { icon: <MapPin className="w-5 h-5" />, label: 'Address', sub: 'Zone, street, plot number', href: '/citizen/profile/address' },
+      { icon: <CreditCard className="w-5 h-5" />, label: 'Payment Methods', sub: 'M-Pesa, Tigo, Airtel, GePG', href: '/citizen/profile/payments' },
+      { icon: <Settings2 className="w-5 h-5" />, label: 'App Preferences', sub: 'Language, notifications', href: '/citizen/profile/preferences' },
     ]
   },
   {
     items: [
-      { icon: <HelpCircle className="w-5 h-5" />, label: 'Help & Support', sub: 'FAQs, contact TMWA' },
+      { icon: <HelpCircle className="w-5 h-5" />, label: 'Help & Support', sub: 'FAQs, contact TMWA', href: '/citizen/profile/support' },
     ]
   },
 ];
@@ -76,21 +77,22 @@ export default function CitizenProfilePage() {
             className="bg-white rounded-2xl shadow-sm overflow-hidden border border-outline-variant/10"
           >
             {section.items.map((item, ii) => (
-              <motion.button
-                key={item.label}
-                whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center gap-4 px-4 py-4 hover:bg-surface-container-low transition-colors text-left"
-                style={{ borderBottom: ii < section.items.length - 1 ? '1px solid rgba(0,0,0,0.04)' : 'none' }}
-              >
-                <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                  {item.icon}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-on-surface">{item.label}</p>
-                  {item.sub && <p className="text-xs text-on-surface/40 mt-0.5 truncate">{item.sub}</p>}
-                </div>
-                <ChevronRight className="w-4 h-4 text-on-surface/20 flex-shrink-0" />
-              </motion.button>
+              <Link key={item.label} href={item.href} className="block">
+                <motion.div
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full flex items-center gap-4 px-4 py-4 hover:bg-surface-container-low transition-colors text-left"
+                  style={{ borderBottom: ii < section.items.length - 1 ? '1px solid rgba(0,0,0,0.04)' : 'none' }}
+                >
+                  <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                    {item.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-on-surface">{item.label}</p>
+                    {item.sub && <p className="text-xs text-on-surface/40 mt-0.5 truncate">{item.sub}</p>}
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-on-surface/20 flex-shrink-0" />
+                </motion.div>
+              </Link>
             ))}
           </motion.div>
         ))}

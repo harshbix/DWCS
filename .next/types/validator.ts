@@ -146,10 +146,55 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../app/(citizen)/citizen/profile/address/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/citizen/profile/address">> = Specific
+  const handler = {} as typeof import("../../app/(citizen)/citizen/profile/address/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/(citizen)/citizen/profile/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/citizen/profile">> = Specific
   const handler = {} as typeof import("../../app/(citizen)/citizen/profile/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/(citizen)/citizen/profile/payments/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/citizen/profile/payments">> = Specific
+  const handler = {} as typeof import("../../app/(citizen)/citizen/profile/payments/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/(citizen)/citizen/profile/preferences/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/citizen/profile/preferences">> = Specific
+  const handler = {} as typeof import("../../app/(citizen)/citizen/profile/preferences/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/(citizen)/citizen/profile/settings/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/citizen/profile/settings">> = Specific
+  const handler = {} as typeof import("../../app/(citizen)/citizen/profile/settings/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/(citizen)/citizen/profile/support/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/citizen/profile/support">> = Specific
+  const handler = {} as typeof import("../../app/(citizen)/citizen/profile/support/page.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check
@@ -186,6 +231,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
 {
   type __IsExpected<Specific extends AppPageConfig<"/driver/profile">> = Specific
   const handler = {} as typeof import("../../app/(driver)/driver/profile/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/(driver)/driver/profile/settings/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/driver/profile/settings">> = Specific
+  const handler = {} as typeof import("../../app/(driver)/driver/profile/settings/page.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

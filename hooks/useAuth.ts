@@ -12,10 +12,17 @@ export function useAuth() {
   const supabase = createBrowserSupabaseClient();
   const queryClient = useQueryClient();
 
+  const isDummyAuth = typeof window !== 'undefined' && document.cookie.includes('dummy-auth=true');
+
   // Query to fetch the Supabase Auth User object
   const { data: user, isLoading: isUserLoading } = useQuery({
     queryKey: ['supabase-user'],
     queryFn: async () => {
+      if (isDummyAuth) {
+        const cookies = document.cookie.split('; ');
+        const emailCookie = cookies.find(row => row.startsWith('dummy-email='))?.split('=')[1] || 'dummy@example.com';
+        return { id: 'dummy-user-id', email: decodeURIComponent(emailCookie) };
+      }
       const { data: { user }, error } = await supabase.auth.getUser();
       if (error || !user) return null;
       return user;
@@ -28,6 +35,26 @@ export function useAuth() {
     queryKey: ['user-profile', user?.id],
     queryFn: async () => {
       if (!user) return null;
+
+      if (isDummyAuth) {
+        const email = user.email || 'dummy@example.com';
+        let role: UserRoleName = 'citizen';
+        if (email.includes('admin')) role = 'admin';
+        else if (email.includes('driver')) role = 'driver';
+        else if (email.includes('supervisor')) role = 'supervisor';
+
+        return {
+          id: user.id,
+          organization_id: 'dummy-org-id',
+          full_name: role === 'admin' ? 'System Administrator' : role === 'driver' ? 'Test Driver' : 'Test Citizen',
+          phone: '+255 700 000000',
+          email: email,
+          avatar_url: null,
+          status: 'active',
+          roles: [role],
+          primaryRole: role,
+        } as UserProfile;
+      }
 
       // 1. Query Profile fields
       const { data: profileData, error: profileError } = await supabase
@@ -74,6 +101,11 @@ export function useAuth() {
   });
 
   const logout = async () => {
+    if (isDummyAuth) {
+      document.cookie = 'dummy-auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = 'dummy-email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = 'user-role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    }
     await supabase.auth.signOut();
     queryClient.setQueryData(['supabase-user'], null);
     queryClient.setQueryData(['user-profile', user?.id], null);

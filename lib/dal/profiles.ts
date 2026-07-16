@@ -8,6 +8,27 @@ export const getProfile = cache(async () => {
   const user = await getUser();
   if (!user) return null;
 
+  // Bypass DB if dummy user
+  if (user.id === 'dummy-user-id') {
+    const email = user.email || 'dummy@example.com';
+    let role: UserRoleName = 'citizen';
+    if (email.includes('admin')) role = 'admin';
+    else if (email.includes('driver')) role = 'driver';
+    else if (email.includes('supervisor')) role = 'supervisor';
+
+    return {
+      id: user.id,
+      organization_id: 'dummy-org-id',
+      full_name: role === 'admin' ? 'System Administrator' : role === 'driver' ? 'Test Driver' : 'Test Citizen',
+      phone: '+255 700 000000',
+      email: email,
+      avatar_url: null,
+      status: 'active',
+      roles: [role],
+      primaryRole: role,
+    } as UserProfile;
+  }
+
   const supabase = await createServerSupabaseClient();
   
   // Phase 3: Optimize Server Components
